@@ -3,4 +3,14 @@ let pokemonList = [{name: 'Charmander', height: 0.6, types: ['fire']},
                    {name: 'Bulbasaur', height: 0.7, types: ['grass', 'poison']}, 
                    {name: 'Squirtle', height: 0.5, types: ['water']}
                     ];
-document.write(pokemonList[0].name);
+
+
+for (let i = 0; i < pokemonList.length; i++) {
+    if (pokemonList[i].height > 0.6) {
+        // adds extra span string if height above 0.6
+        document.write ('<p>'), document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') '), document.write('<span> - Wow, that\'s big!</span>'), document.write('</p>');
+      } else {
+        // otherwise just prints name and height
+        document.write ('<p>'), document.write (pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') '), document.write('</p>');
+      }
+    }
