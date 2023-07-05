@@ -17,12 +17,15 @@ let pokemonRepository = (function () {
 
   function add(pokemon) {
     if (typeof pokemon !== 'object'){
-      console.log('error')
-      } else {
-      pokemonList.push(pokemon);
-      }
+      console.log('input is not an object');
+      } else if (Object.keys(pokemon) == 'name' || Object.keys(pokemon) == 'height' || Object.keys(pokemon) == 'types' && Object.keys(pokemon)) { 
+          console.log('object successfully added')
+          pokemonList.push(pokemon);
+        } else {
+          console.log('object keyname is invalid');
+          }
   };
-
+      
   return {
     add: add,
     getAll: getAll
