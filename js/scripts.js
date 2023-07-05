@@ -16,8 +16,12 @@ let pokemonRepository = (function () {
   }
 
   function add(pokemon) {
-    pokemonList.push(pokemon);
-  }
+    if (typeof pokemon !== 'object'){
+      console.log('error')
+      } else {
+      pokemonList.push(pokemon);
+      }
+  };
 
   return {
     add: add,
