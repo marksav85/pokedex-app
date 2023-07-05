@@ -5,12 +5,12 @@ let pokemonList = [{name: 'Charmander', height: 0.6, types: ['fire']},
                     ];
 
 
-for (let i = 0; i < pokemonList.length; i++) {
-    if (pokemonList[i].height > 0.6) {
+pokemonList.forEach(function(pokemon) {
+    if (pokemon.height > 0.6) {
         // adds extra span string if height above 0.6
-        document.write ('<p>'), document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') '), document.write('<span> - Wow, that\'s big!</span>'), document.write('</p>');
+        document.write ('<p>'), document.write(pokemon.name + ' (height: ' + pokemon.height + ') '), document.write('<span> - Wow, that\'s big!</span>'), document.write('</p>');
       } else {
         // otherwise just prints name and height
-        document.write ('<p>'), document.write (pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') '), document.write('</p>');
+        document.write ('<p>'), document.write (pokemon.name + ' (height: ' + pokemon.height + ') '), document.write('</p>');
       }
-    }
+    });
