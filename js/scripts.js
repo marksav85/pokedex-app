@@ -32,16 +32,24 @@ let pokemonRepository = (function () {
       };
   };
       
-  return {
-    add: add,
-    getAll: getAll,
-  };
+
+function filter(word) { // filters pokemon by name
+  let filteredList = pokemonList.filter(function(pokemon) {
+    return pokemon.name.includes(word);
+  });
+  return filteredList;
+}; 
+
+return {
+  add: add,
+  getAll: getAll,
+  filter: filter
+};
 
 })();
 
 let pokeList = pokemonRepository.getAll()
-
-pokeList.forEach(function(pokemon) {
+pokeList.forEach(function(pokemon) { // loops through pokemonList and prints name and height
   if (pokemon.height > 0.6) {
       // adds extra span string if height above 0.6
       document.write ('<p>'), document.write(pokemon.name + ' (height: ' + pokemon.height + ') '), document.write('<span> - Wow, that\'s big!</span>'), document.write('</p>');
