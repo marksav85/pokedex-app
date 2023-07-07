@@ -1,7 +1,10 @@
+/* global start */
+
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 16px;
+    background-color: #eeeeee;
     color: green;
 }
 
@@ -16,7 +19,7 @@ button {
     /* takes the font from the outer container */
     font-family: inherit;
     /* styles the background color, font color, and text decoration (underline, etc.) of the button */
-    background-color: #357b70;
+    background-color: #4dad5b;
     color: #fff;
     text-decoration: none;
     /*adds spacing to the button (this will be discussed more in-depth later) */
@@ -25,4 +28,43 @@ button {
     /* gives the button a bottom border with a width of 2px, a type of solid, and a color in RGBA format */
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
     transition: opacity 0.2s;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* global end */
+
+/* header and footer styles */
+
+.page-header  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #30a7d7ff;
+    color: #fff;
+}
+
+.page-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #30a7d7ff;
+    color: #fff;
+}
+
+/* header and footer styles end */
+
+/* main content styles */
+
+.main-content {
+    display: flex;
+    max-width: 700px;
+    margin: 0 auto;
+    flex-grow: 1;
 }
