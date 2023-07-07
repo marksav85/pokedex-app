@@ -48,10 +48,14 @@ function addListItem(pokemon) { // adds list item to DOM
   button.classList.add('button-class');
   listItem.appendChild(button);
   list.appendChild(listItem);
-  button.addEventListener('click', function(event) { // adds event listener to button to display pokemon details
+  button.addEventListener('click', function() { // adds event listener to button to display pokemon details
     showDetails(pokemon);
   });
 };
+
+function showDetails(pokemon) { // displays pokemon details
+  console.log(pokemon.name + ' is ' + pokemon.height + 'm tall and is a ' + pokemon.types + ' type');
+}
 
 return {
   add: add,
