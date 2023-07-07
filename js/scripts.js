@@ -40,16 +40,7 @@ function filter(word) { // filters pokemon by name
   return filteredList;
 }; 
 
-return {
-  add: add,
-  getAll: getAll,
-  filter: filter
-};
-
-})();
-
-let pokeList = pokemonRepository.getAll()
-pokeList.forEach(function(pokemon) { // loops through pokemonList and prints name and height
+function addListItem(pokemon) { // adds list item to DOM
   let list = document.querySelector('.pokemon-list');
   let listItem = document.createElement('li');
   let button = document.createElement('button');
@@ -57,4 +48,21 @@ pokeList.forEach(function(pokemon) { // loops through pokemonList and prints nam
   button.classList.add('button-class');
   listItem.appendChild(button);
   list.appendChild(listItem);
+  button.addEventListener('click', function(event) { // adds event listener to button to display pokemon details
+    showDetails(pokemon);
+  });
+};
+
+return {
+  add: add,
+  getAll: getAll,
+  filter: filter,
+  addListItem: addListItem
+};
+
+})();
+
+let pokeList = pokemonRepository.getAll()
+pokeList.forEach(function(pokemon) { // loops through pokemonList and prints name and height
+  pokemonRepository.addListItem(pokemon);
   });
