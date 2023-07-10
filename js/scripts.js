@@ -37,7 +37,9 @@ function addListItem(pokemon) { // adds list item to DOM
 };
 
 function showDetails(pokemon) { // displays pokemon details
-  console.log(pokemon.name + ' is ' + pokemon.height + 'm tall and is a ' + pokemon.types + ' type');
+  loadDetails(pokemon).then(function() {
+    console.log(pokemon);
+  });
 }
 
 function loadList() { // loads pokemon list from API
