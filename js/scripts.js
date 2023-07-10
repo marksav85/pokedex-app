@@ -60,12 +60,14 @@ return {
   add: add,
   getAll: getAll,
   filter: filter,
-  addListItem: addListItem
+  addListItem: addListItem,
+  loadList: loadList
 };
 
 })();
 
-let pokeList = pokemonRepository.getAll()
-pokeList.forEach(function(pokemon) { // loops through pokemonList and prints name and height
+pokemonRepository.loadList().then(function() { // loads pokemon list from API
+pokemonRepository.getAll().forEach(function(pokemon) { // loops through pokemonList
   pokemonRepository.addListItem(pokemon);
   });
+});
