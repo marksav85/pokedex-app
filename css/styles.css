@@ -13,6 +13,7 @@ span {
 }
 
 button {
+    font-size: 32px;
     margin: 10px;
     /* overwrites browser defaults and resets the border */
     border: none;
@@ -67,4 +68,8 @@ button {
     max-width: 700px;
     margin: 0 auto;
     flex-grow: 1;
+}
+
+.pokemon-list {
+    list-style-type: none;
 }
