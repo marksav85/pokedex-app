@@ -5,7 +5,6 @@ body {
     font-weight: 400;
     font-size: 16px;
     background-color: #eeeeee;
-    color: green;
 }
 
 span {
@@ -73,3 +72,17 @@ button {
 .pokemon-list {
     list-style-type: none;
 }
+
+.is-visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 32px;
+    color: #4dad5b;
+}
+
+.is-hidden {
+    display: none;
+};
+

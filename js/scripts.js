@@ -1,6 +1,6 @@
 let pokemonRepository = (function () {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/'
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1200'
 
   function getAll() {
     return pokemonList;
@@ -43,7 +43,9 @@ function showDetails(pokemon) { // displays pokemon details
 }
 
 function loadList() { // loads pokemon list from API
+  showLoadingMessage(); //shows loading message while wating for response
   return fetch(apiUrl).then(function(response) {
+    hideLoadingMessage(); // hides loading message when response is received
     return response.json();
   }).then(function(json) {
     json.results.forEach(function(item) {
@@ -70,6 +72,19 @@ function loadDetails(item) { // loads pokemon details from API
     console.error(e);
   });
 }
+
+function showLoadingMessage() { // shows loading message
+  let loading = document.querySelector('#loading');
+  loading.classList.remove('is-hidden');
+  loading.classList.add('is-visible');
+}
+
+function hideLoadingMessage() { // hide loading message
+  let finishedLoading = document.querySelector('#loading');
+  finishedLoading.classList.remove('is-visible');
+  finishedLoading.classList.add('is-hidden');
+}
+
 
 return {
   add: add,
