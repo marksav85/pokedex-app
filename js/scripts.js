@@ -8,7 +8,7 @@ let pokemonRepository = (function () {
 
   
   function add(pokemon) {
-    if (typeof pokemon === 'object' && 'name' in pokemon ){ 
+    if (typeof pokemon === 'object' && 'name' in pokemon ){ // checks if input is an object and has a name property
       pokemonList.push(pokemon);
     } else { 
       console.log('input is not an object');
