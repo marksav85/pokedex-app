@@ -57,7 +57,6 @@ function loadList() { // loads pokemon list from API
         name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // capitalizes first letter of pokemon name
         detailsUrl: item.url
       };
-      /* let pokemon.name = item.name.charAt(0).toUpperCase() + item.name.slice(1); */ // capitalizes first letter of pokemon name
       add(pokemon);
     });
   }).catch(function(e) {
