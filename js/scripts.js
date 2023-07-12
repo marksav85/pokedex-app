@@ -38,8 +38,9 @@ function addListItem(pokemon) { // adds list item to DOM
 
 function showDetails(pokemon) { // displays pokemon details
   loadDetails(pokemon).then(function() {
-    showModal(pokemon.name, pokemon.height, pokemon.types, pokemon.imageUrl);
+    showModal(pokemon.name, `Height: ${pokemon.height} m`, `Types: ${pokemon.types[0].type.name}`, pokemon.imageUrl);
     console.log(pokemon);
+    console.log(pokemon.types[0].type.name);
   });
 }
 
