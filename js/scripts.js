@@ -38,7 +38,7 @@ function addListItem(pokemon) { // adds list item to DOM
 
 function showDetails(pokemon) { // displays pokemon details
   loadDetails(pokemon).then(function() {
-    showModal(pokemon.name, 'Height: ' + pokemon.height + 'm' + '<br>' + 'Type: ' + pokemon.types[0].type.name);
+    showModal(pokemon.name, pokemon.height, pokemon.types, pokemon.imageUrl);
     console.log(pokemon);
   });
 }
@@ -88,7 +88,7 @@ function hideLoadingMessage() { // hide loading message
 
 
 let modalContainer = document.querySelector('#modal-container');
-function showModal(title, text) {
+function showModal(title, height, types, image) {
   // Clear all existing modal content
   
   modalContainer.innerHTML = '';
@@ -105,12 +105,23 @@ function showModal(title, text) {
   let titleElement = document.createElement('h1');
   titleElement.innerText = title;
   
-  let contentElement = document.createElement('p');
-  contentElement.innerText = text;
+  let heightElement = document.createElement('p');
+  heightElement.innerText = height;
+
+  let typesElement = document.createElement('p');
+  typesElement.innerText = types;
+
+  let imageElement = document.createElement('img');
+  imageElement.src = image;
+  
+
   
   modal.appendChild(closeButtonElement);
   modal.appendChild(titleElement);
-  modal.appendChild(contentElement);
+  modal.appendChild(heightElement);
+  modal.appendChild(typesElement);
+  modal.appendChild(imageElement);
+
   modalContainer.appendChild(modal);
   
   modalContainer.classList.add('is-visible');
@@ -118,6 +129,7 @@ function showModal(title, text) {
 
 function hideModal() {
   modalContainer.classList.remove('is-visible');  
+  modalContainer.classList.add('is-hidden');
 }
 
 window.addEventListener('keydown', (e) => {
