@@ -98,13 +98,18 @@ function showModal(title, height, types, image) {
   
   let modal = document.createElement('div');
   modal.classList.add('modal');
-  
-  // Add the new modal content
+
+  // Add the new modal button
+  let modalClose = document.createElement('div');
   let closeButtonElement = document.createElement('button');
   closeButtonElement.classList.add('modal-close');
   closeButtonElement.innerText = 'X';
   closeButtonElement.addEventListener('click', hideModal);
   
+  // Add the new modal content
+  let modalContent = document.createElement('div');
+  modalContent.classList.add('modal-content');
+
   let titleElement = document.createElement('h1');
   titleElement.innerText = title;
   
@@ -114,18 +119,24 @@ function showModal(title, height, types, image) {
   let typesElement = document.createElement('p');
   typesElement.innerText = types;
 
+  // Add the new modal image
+  let modalImage = document.createElement('div');
+  modalImage.classList.add('modal-image');
   let imageElement = document.createElement('img');
   imageElement.src = image;
   
 
   
-  modal.appendChild(closeButtonElement);
-  modal.appendChild(titleElement);
-  modal.appendChild(heightElement);
-  modal.appendChild(typesElement);
-  modal.appendChild(imageElement);
+  modalClose.appendChild(closeButtonElement);
+  modalContent.appendChild(titleElement);
+  modalContent.appendChild(heightElement);
+  modalContent.appendChild(typesElement);
+  modalImage.appendChild(imageElement);
 
   modalContainer.appendChild(modal);
+  modalContainer.appendChild(modalClose);
+  modalContainer.appendChild(modalContent);
+  modalContainer.appendChild(modalImage);
   
   modalContainer.classList.add('is-visible');
 }
