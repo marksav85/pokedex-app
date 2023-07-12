@@ -127,12 +127,26 @@ button {
   }
   
   .modal-close {
+    font-size: 16px;
+    font-weight: bold;
     float: right;
     -webkit-appearance: none;
     border: 0;
-    background: none;
-    color: #777;
-    text-decoration: underline;
+    background: transparent;
+    color: #1da1f2;
+    width: 2em; height: 2em;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:focus {
+      outline: solid 0 transparent;
+      box-shadow: 0 0 0 2px #8ed0f9
+    }
+    
+    &:hover {
+      background: rgba(29, 161, 142, .1)
+    }
+    
   }
   
   .modal h1 {
