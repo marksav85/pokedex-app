@@ -54,9 +54,10 @@ function loadList() { // loads pokemon list from API
   }).then(function(json) {
     json.results.forEach(function(item) {
       let pokemon = {
-        name: item.name,
+        name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // capitalizes first letter of pokemon name
         detailsUrl: item.url
       };
+      /* let pokemon.name = item.name.charAt(0).toUpperCase() + item.name.slice(1); */ // capitalizes first letter of pokemon name
       add(pokemon);
     });
   }).catch(function(e) {
@@ -125,18 +126,18 @@ function showModal(title, height, types, image) {
   let imageElement = document.createElement('img');
   imageElement.src = image;
   
-
-  
+  // Add all modal children to page  
   modalClose.appendChild(closeButtonElement);
   modalContent.appendChild(titleElement);
   modalContent.appendChild(heightElement);
   modalContent.appendChild(typesElement);
   modalImage.appendChild(imageElement);
 
+  // Add all modal elements to page
   modalContainer.appendChild(modal);
-  modalContainer.appendChild(modalClose);
-  modalContainer.appendChild(modalContent);
-  modalContainer.appendChild(modalImage);
+  modal.appendChild(modalClose);
+  modal.appendChild(modalContent);
+  modal.appendChild(modalImage);
   
   modalContainer.classList.add('is-visible');
 }
