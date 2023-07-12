@@ -38,9 +38,11 @@ function addListItem(pokemon) { // adds list item to DOM
 
 function showDetails(pokemon) { // displays pokemon details
   loadDetails(pokemon).then(function() {
-    showModal(pokemon.name, `Height: ${pokemon.height} m`, `Types: ${pokemon.types[0].type.name}`, pokemon.imageUrl);
-    console.log(pokemon);
-    console.log(pokemon.types[0].type.name);
+    if (pokemon.types.length > 1) { // checks if pokemon has one or two types
+      showModal(pokemon.name, `Height: ${pokemon.height} m`, `Types: ${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`, pokemon.imageUrl); //outputs pokemon details with 2 types to modal
+    } else {
+      showModal(pokemon.name, `Height: ${pokemon.height} m`, `Type: ${pokemon.types[0].type.name}`, pokemon.imageUrl); //outputs pokemon details with 1 type to modal
+    };
   });
 }
 
