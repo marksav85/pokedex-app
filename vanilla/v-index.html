@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./img/favicon-32x32.png" sizes="32x32">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>My Pokedex App</title>
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>My Pokedex</h1>
+        </header>
+        <main class="main-content">
+            <div id="modal-container"></div>
+            <div id="loading" class="is-hidden">   
+                <h1>Page is Loading</h1>
+            </div>
+            <ul class="pokemon-list">
+
+            </ul>
+        </main>
+        <footer class="page-footer">
+
+        </footer>
+    </div>
+    <script src="js/promise-polyfill.js"></script>
+    <script src="js/fetch.umd.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

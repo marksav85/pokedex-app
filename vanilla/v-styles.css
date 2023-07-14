@@ -1,0 +1,161 @@
+/* global start */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: #eeeeee;
+}
+
+span {
+    color: red;
+}
+
+button {
+    font-size: 32px;
+    margin: 10px auto;
+    /* overwrites browser defaults and resets the border */
+    border: none;
+    /* takes the font from the outer container */
+    font-family: inherit;
+    /* styles the background color, font color, and text decoration (underline, etc.) of the button */
+    background-color: #4dad5b;
+    color: #fff;
+    text-decoration: none;
+    /*adds spacing to the button (this will be discussed more in-depth later) */
+    padding: 5px;
+    border-radius: 3px;
+    /* gives the button a bottom border with a width of 2px, a type of solid, and a color in RGBA format */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    transition: opacity 0.2s;
+}
+
+.button-class {
+  width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* global end */
+
+/* header and footer styles */
+
+.page-header  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #30a7d7ff;
+    color: #fff;
+}
+
+.page-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #30a7d7ff;
+    color: #fff;
+}
+
+/* header and footer styles end */
+
+/* main content styles */
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    
+    flex-grow: 1;
+}
+
+.pokemon-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.is-visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 32px;
+    color: #4dad5b;
+}
+
+.is-hidden {
+    display: none;
+};
+
+/* main content styles end */
+
+/* modal styles */
+
+#modal-container {
+    display: none;
+  }
+  
+  #modal-container.is-visible {
+    position: fixed;
+    padding: 20px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    
+    /* to show it above other content */
+    z-index: 999; 
+    
+    /* to allow scrolling if the screen is not high enough*/
+    overflow: auto; 
+    
+    /* this is used to center the modal */
+    display: grid;
+    text-align: center;
+  }
+  
+  .modal {
+    font-size: 24px;
+    margin: auto;
+    display: inline-block;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 15px;
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+  }
+  
+  .modal-close {
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    color: #1da1f2;
+    width: 2em; height: 2em;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:focus {
+      outline: solid 0 transparent;
+      box-shadow: 0 0 0 2px #8ed0f9
+    }
+    
+    &:hover {
+      background: rgba(29, 161, 142, .1)
+    }
+    
+  }
+
