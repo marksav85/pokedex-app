@@ -124,50 +124,10 @@ let pokemonRepository = (function () {
     let imageElement = document.createElement('img');
     imageElement.src = image;
 
-  
-    /* // Add the new modal button
-    let modalClose = document.createElement('div');
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'X';
-    closeButtonElement.addEventListener('click', hideModal);
-    
-    // Add the new modal content
-    let modalContent = document.createElement('div');
-    modalContent.classList.add('modal-content');
-  
-    let titleElement = document.createElement('h1');
-    titleElement.innerText = title;
-    
-    let heightElement = document.createElement('p');
-    heightElement.innerText = height;
-  
-    let typesElement = document.createElement('p');
-    typesElement.innerText = types;
-  
-    // Add the new modal image
-    let modalImage = document.createElement('div');
-    modalImage.classList.add('modal-image');
-    let imageElement = document.createElement('img');
-    imageElement.src = image; */
-
     modalTitle.append(nameElement);
     modalBody.append(heightElement);
     modalBody.append(typesElement);
     modalBody.append(imageElement);
-    
-    /* // Add all modal children to page  
-    modalClose.appendChild(closeButtonElement);
-    modalContent.appendChild(titleElement);
-    modalContent.appendChild(heightElement);
-    modalContent.appendChild(typesElement);
-    modalImage.appendChild(imageElement);
-  
-    // Add all modal elements to page
-    modal.appendChild(modal);
-    modal.appendChild(modalClose);
-    modal.appendChild(modalContent);
-    modal.appendChild(modalImage); */
     
     modal.classList.add('is-visible');
   }
