@@ -32,8 +32,6 @@ let pokemonRepository = (function () {
     button.classList.add('btn-primary');
     button.setAttribute('data-target', '#pokemonModal');
     button.setAttribute('data-toggle', 'modal');
-    
-
 
     listItem.classList.add('group-list-item');
     listItem.appendChild(button);
@@ -96,10 +94,10 @@ let pokemonRepository = (function () {
     finishedLoading.classList.add('is-hidden');
   }
   
+  let mainContent = document.querySelector('#main-content');
   
-  let modalContainer = document.querySelector('#modal-container');
   function showModal(title, height, types, image) {
-
+    
     // HTML variable elements for modal
     let modalBody = document.querySelector('.modal-body');
     let modalTitle = document.querySelector('.modal-title');
@@ -166,30 +164,30 @@ let pokemonRepository = (function () {
     modalImage.appendChild(imageElement);
   
     // Add all modal elements to page
-    modalContainer.appendChild(modal);
+    modal.appendChild(modal);
     modal.appendChild(modalClose);
     modal.appendChild(modalContent);
     modal.appendChild(modalImage); */
     
-    modalContainer.classList.add('is-visible');
+    modal.classList.add('is-visible');
   }
   
   function hideModal() {
-    modalContainer.classList.remove('is-visible');  
-    modalContainer.classList.add('is-hidden');
+    modal.classList.remove('is-visible');  
+    modal.classList.add('is-hidden');
   }
   
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+    if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
       hideModal();  
     }
   });
   
-  modalContainer.addEventListener('click', (e) => {
+  mainContent.addEventListener('click', (e) => {
     // Since this is also triggered when clicking INSIDE the modal container,
     // We only want to close if the user clicks directly on the overlay
     let target = e.target;
-    if (target === modalContainer) {
+    if (target === mainContent) {
       hideModal();
     }
   });
