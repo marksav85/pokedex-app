@@ -130,28 +130,7 @@ let pokemonRepository = (function () {
     modalBody.append(typesElement);
     modalBody.append(imageElement);
     
-    modal.classList.add('is-visible');
   }
-  
-  function hideModal() {
-    modal.classList.remove('is-visible');  
-    modal.classList.add('is-hidden');
-  }
-  
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-visible')) {
-      hideModal();  
-    }
-  });
-  
-  mainContent.addEventListener('click', (e) => {
-    // Since this is also triggered when clicking INSIDE the modal container,
-    // We only want to close if the user clicks directly on the overlay
-    let target = e.target;
-    if (target === mainContent) {
-      hideModal();
-    }
-  });
   
   return {
     add: add,
