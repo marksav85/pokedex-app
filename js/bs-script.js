@@ -27,7 +27,7 @@ let pokemonRepository = (function () {
     let list = document.querySelector('.pokemon-list');
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('btn', 'bg-success', 'text-white', 'm-1', 'w-25', 'h-100', 'list-group-item', 'group-list-item-action');
+    button.classList.add('btn', 'bg-success', 'text-white', 'm-1', 'w-25', 'list-group-item', 'group-list-item-action');
     button.setAttribute('type', 'button');
     button.setAttribute('data-target', '#pokemonModal');
     button.setAttribute('data-toggle', 'modal');
@@ -91,8 +91,6 @@ let pokemonRepository = (function () {
     finishedLoading.classList.remove('is-visible');
     finishedLoading.classList.add('is-hidden');
   }
-  
-  let mainContent = document.querySelector('#main-content');
   
   function showModal(title, height, types, image) {
     
