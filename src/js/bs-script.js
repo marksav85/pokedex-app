@@ -28,9 +28,9 @@ let pokemonRepository = (function () {
     
     // create card
     let card = document.createElement('div');
-    card.classList.add('card', 'bg-light', 'text-center', 'm-1', 'w-25');
+    card.classList.add('card', 'bg-light', 'text-center', 'd-inline-flex', 'align-items-center', 'justify-content-center', 'm-2', 'p-2', 'w-25', 'col-sm-12', 'col-md-6', 'col-lg-4', 'col-xl-3', 'col-xxl-2');
     let cardImage = document.createElement('img');
-    cardImage.classList.add('card-img-top');
+    cardImage.classList.add('card-img-top', 'w-50');
     cardImage.src = ''  // sets image source to empty string
     cardImage.alt = 'pokemon image';
     let cardBody = document.createElement('div');
