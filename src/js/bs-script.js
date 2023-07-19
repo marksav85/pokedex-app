@@ -28,7 +28,7 @@ let pokemonRepository = (function () {
     
     // create card
     let card = document.createElement('div');
-    card.classList.add('card', 'bg-light', 'text-center', 'd-inline-flex', 'align-items-center', 'justify-content-center', 'm-2', 'p-2', 'w-25', 'col-sm-12', 'col-md-6', 'col-lg-4', 'col-xl-3', 'col-xxl-2');
+    card.classList.add('card', 'text-center', 'd-inline-flex', 'align-items-center', 'justify-content-center', 'm-2', 'p-2', 'w-25', 'col-sm-12', 'col-md-6', 'col-lg-4', 'col-xl-3', 'col-xxl-2');
     card.setAttribute('style', 'min-width: 175px');
     let cardImage = document.createElement('img');
     cardImage.classList.add('card-img-top', 'w-50');
@@ -37,10 +37,11 @@ let pokemonRepository = (function () {
     let cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
     let cardButton = document.createElement('button');
-    cardButton.classList.add('btn', 'btn-success');
+    cardButton.classList.add('btn');
     cardButton.setAttribute('type', 'button');
     cardButton.setAttribute('data-target', '#pokemonModal');
     cardButton.setAttribute('data-toggle', 'modal');
+    cardButton.setAttribute('style', 'background-color: #78c850ff; color: #fff;')
     cardButton.innerText = pokemon.name;
     card.appendChild(cardImage);
     card.appendChild(cardBody);
@@ -114,6 +115,7 @@ let pokemonRepository = (function () {
   function showModal(title, height, types, image) {
     
     // HTML variable elements for modal
+    let modalContent = document.querySelector('.modal-content');
     let modalBody = document.querySelector('.modal-body');
     let modalTitle = document.querySelector('.modal-title');
     let modalHeader = document.querySelector('.modal-header');
@@ -122,6 +124,8 @@ let pokemonRepository = (function () {
     
     modalTitle.innerText = '';
     modalBody.innerText = '';
+    modalBody.setAttribute('style', 'background-color: #fff; color: #78c850ff;');
+    modalContent.setAttribute('style', 'background-color: #9e7fdc; color: #fff;');
     
     // create name element for modal
     let nameElement = document.createElement('h1');
@@ -130,10 +134,12 @@ let pokemonRepository = (function () {
     // create height element for modal
     let heightElement = document.createElement('p');
     heightElement.innerText = height;
+    heightElement.setAttribute('style', 'font-weight: bold;');
 
     // create types element for modal
     let typesElement = document.createElement('p');
     typesElement.innerText = types;
+    typesElement.setAttribute('style', 'font-weight: bold;');
 
     // create image element for modal
     let imageElement = document.createElement('img');

@@ -1,3 +1,17 @@
+body {
+    background-color: #6890f0ff;
+}
+
+.card {
+    background-color: #9e7fdc;
+}
+
+.modal-footer button {
+    background-color: #4dad5b;
+    color: #fff;
+
+}
+
 .is-visible {
     display: flex;
     justify-content: center;
