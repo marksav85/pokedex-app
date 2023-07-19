@@ -1,6 +1,6 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1200'
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=120'
   
     function getAll() {
       return pokemonList;
@@ -25,22 +25,33 @@ let pokemonRepository = (function () {
   
   function addListItem(pokemon) { // adds list item to DOM
     let list = document.querySelector('.pokemon-list');
-    let button = document.createElement('button');
-    let buttonImage = document.createElement('img');
-    button.innerText = pokemon.name;
-    buttonImage.src = ''  // sets image source to empty string
-    button.classList.add('btn', 'bg-success', 'text-white', 'm-1', 'w-25', 'list-group-item', 'group-list-item-action');
-    button.setAttribute('type', 'button');
-    button.setAttribute('data-target', '#pokemonModal');
-    button.setAttribute('data-toggle', 'modal');
-    list.appendChild(buttonImage);
-    list.appendChild(button); 
+    
+    // create card
+    let card = document.createElement('div');
+    card.classList.add('card', 'bg-light', 'text-center', 'm-1', 'w-25');
+    let cardImage = document.createElement('img');
+    cardImage.classList.add('card-img-top');
+    cardImage.src = ''  // sets image source to empty string
+    cardImage.alt = 'pokemon image';
+    let cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    let cardButton = document.createElement('button');
+    cardButton.classList.add('btn', 'btn-success');
+    cardButton.setAttribute('type', 'button');
+    cardButton.setAttribute('data-target', '#pokemonModal');
+    cardButton.setAttribute('data-toggle', 'modal');
+    cardButton.innerText = pokemon.name;
+    card.appendChild(cardImage);
+    card.appendChild(cardBody);
+    cardBody.appendChild(cardButton);
+
+    list.appendChild(card);
 
     loadDetails(pokemon).then(() => {
-      buttonImage.src = pokemon.imageUrl;
+      cardImage.src = pokemon.imageUrl;
     });
     
-    button.addEventListener('click', function() { // adds event listener to button to display pokemon details
+    cardButton.addEventListener('click', function() { // adds event listener to button to display pokemon details
       showDetails(pokemon);
     });
   };
