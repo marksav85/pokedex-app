@@ -21,7 +21,23 @@ let pokemonRepository = (function () {
       return pokemon.name.includes(word);
     });
     return filteredList;
+    
   }; 
+
+  function newItem(){
+
+    //javascript
+    //1. Adding a new item to the list of items: 
+       let inputValue = document.getElementById("input").value;
+    
+       if (inputValue === '') {
+         alert("You must write something!");
+       } else {
+        console.log(inputValue);
+       };
+    
+    };
+    
   
   function addListItem(pokemon) { // adds list item to DOM
     let list = document.querySelector('.pokemon-list');
@@ -80,6 +96,7 @@ let pokemonRepository = (function () {
           detailsUrl: item.url
         };
         add(pokemon);
+        
       });
     }).catch(function(e) {
       console.error(e);
@@ -158,14 +175,15 @@ let pokemonRepository = (function () {
     filter: filter,
     addListItem: addListItem,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    newItem: newItem
   };
   
   })();
-  
+
   pokemonRepository.loadList().then(function() { // loads pokemon list from API
   pokemonRepository.getAll().forEach(function(pokemon) { // loops through pokemonList
-    pokemonRepository.addListItem(pokemon);
+    pokemonRepository.addListItem(pokemon)
     });
   });
 
