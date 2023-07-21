@@ -2,6 +2,29 @@ body {
     background-color: #6890f0ff;
 }
 
+form {
+    display: inline-block;
+}
+
+input {
+padding: 4px 15px 4px 5px;
+}
+
+#searchButton {
+display: inline-block;
+background-color:#fc999b;
+color:#ffffff;
+border-radius: 5px;
+text-align:center;
+margin-top:2px;
+padding: 5px 15px;
+}
+
+#searchButton:hover {
+cursor: pointer;
+opacity: .8;
+}
+
 .card {
     background-color: #9e7fdc;
 }
