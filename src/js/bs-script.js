@@ -24,20 +24,25 @@ let pokemonRepository = (function () {
     
   }; 
 
-  function newItem(){
-
-    //javascript
-    //1. Adding a new item to the list of items: 
-       let inputValue = document.getElementById("input").value;
-    
-       if (inputValue === '') {
-         alert("You must write something!");
-       } else {
-        console.log(inputValue);
-       };
-    
+  function searchItem(){
+    let inputValue = document.getElementById("input").value;
+    if (inputValue === '') {
+      alert("You must write something!");
+    } else {
+      console.log(filter(inputValue));
+      let inputName = filter(inputValue)[0].name;
+      console.log(inputName)
+      return inputName
+    /* return filter(inputValue).forEach(function(pokemon) {
+      console.log */
     };
-    
+       
+  };
+  
+  let searchButton = document.getElementById('searchButton');
+  searchButton.addEventListener('click', function() { // adds event listener to button search button
+    searchItem();
+  });
   
   function addListItem(pokemon) { // adds list item to DOM
     let list = document.querySelector('.pokemon-list');
@@ -121,6 +126,8 @@ let pokemonRepository = (function () {
     let loading = document.querySelector('#loading');
     loading.classList.remove('is-hidden');
     loading.classList.add('is-visible');
+    
+    
   }
   
   function hideLoadingMessage() { // hide loading message
@@ -176,7 +183,7 @@ let pokemonRepository = (function () {
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
-    newItem: newItem
+    searchItem: searchItem
   };
   
   })();
