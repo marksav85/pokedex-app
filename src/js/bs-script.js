@@ -32,7 +32,7 @@ let pokemonRepository = (function () {
     card.setAttribute('style', 'min-width: 175px');
     let cardImage = document.createElement('img');
     cardImage.classList.add('card-img-top', 'w-50');
-    cardImage.src = ''  // sets image source to empty string
+    cardImage.src = 'img/pokeball.png'  // sets image source to pokeball
     cardImage.alt = 'pokemon image';
     let cardBody = document.createElement('div');
     cardBody.classList.add('card-body');
@@ -48,10 +48,6 @@ let pokemonRepository = (function () {
     cardBody.appendChild(cardButton);
 
     list.appendChild(card);
-
-    loadDetails(pokemon).then(() => {
-      cardImage.src = pokemon.imageUrl;
-    });
     
     cardButton.addEventListener('click', function() { // adds event listener to button to display pokemon details
       showDetails(pokemon);
