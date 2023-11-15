@@ -96,7 +96,7 @@ let pokemonRepository = (function () {
     // adds list item to DOM
     let list = document.querySelector(".pokemon-list");
 
-    // create card
+    // create card classes
     let card = document.createElement("div");
     card.classList.add(
       "card",
@@ -113,11 +113,13 @@ let pokemonRepository = (function () {
       "col-xl-3",
       "col-xxl-2"
     );
+    // create card image attributes
     card.setAttribute("style", "min-width: 175px");
     let cardImage = document.createElement("img");
     cardImage.classList.add("card-img-top", "w-50");
     cardImage.src = ""; // sets image source to empty string
     cardImage.alt = "pokemon image";
+    // create card body and button attributes
     let cardBody = document.createElement("div");
     cardBody.classList.add("card-body");
     let cardButton = document.createElement("button");
@@ -125,10 +127,10 @@ let pokemonRepository = (function () {
     cardButton.setAttribute("type", "button");
     cardButton.setAttribute("data-target", "#pokemonModal");
     cardButton.setAttribute("data-toggle", "modal");
-    cardButton.setAttribute(
+    /* cardButton.setAttribute(
       "style",
       "background-color: #78c850ff; color: #fff;"
-    );
+    ); */
     //adds pokemon name to card button
     cardButton.innerText = pokemon.name;
     card.appendChild(cardImage);
@@ -238,14 +240,14 @@ let pokemonRepository = (function () {
 
     modalTitle.innerText = "";
     modalBody.innerText = "";
-    modalBody.setAttribute(
+    /* modalBody.setAttribute(
       "style",
       "background-color: #fff; color: #78c850ff;"
     );
     modalContent.setAttribute(
       "style",
       "background-color: #9e7fdc; color: #fff;"
-    );
+    ); */
 
     // create name element for modal
     let nameElement = document.createElement("h1");
