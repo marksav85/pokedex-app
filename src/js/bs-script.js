@@ -1,3 +1,7 @@
+//FETCH API
+
+// gets all pokemon from API ans creates a pokemon list
+
 let pokemonRepository = (function () {
   let pokemonList = [];
   let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=120";
@@ -6,6 +10,7 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
+  //check if pokemon is an object and has a name property before adding to list
   function add(pokemon) {
     if (typeof pokemon === "object" && "name" in pokemon) {
       // checks if input is an object and has a name property
@@ -84,6 +89,9 @@ let pokemonRepository = (function () {
     console.log("search input changed");
   });
 
+  // CREATE POKEMON CARDS
+
+  // adds pokemon cards to DOM
   function addListItem(pokemon) {
     // adds list item to DOM
     let list = document.querySelector(".pokemon-list");
@@ -121,13 +129,14 @@ let pokemonRepository = (function () {
       "style",
       "background-color: #78c850ff; color: #fff;"
     );
+    //adds pokemon name to card button
     cardButton.innerText = pokemon.name;
     card.appendChild(cardImage);
     card.appendChild(cardBody);
     cardBody.appendChild(cardButton);
 
     list.appendChild(card);
-
+    // fetches image and adds to card
     loadDetails(pokemon).then(() => {
       cardImage.src = pokemon.imageUrl;
     });
@@ -138,6 +147,9 @@ let pokemonRepository = (function () {
     });
   }
 
+  // CREATES MODAL
+
+  // creates modal and adds pokemon details
   function showDetails(pokemon) {
     // displays pokemon details
     loadDetails(pokemon).then(function () {
@@ -160,8 +172,8 @@ let pokemonRepository = (function () {
     });
   }
 
+  // LOADS POKEMON LIST FROM API
   function loadList() {
-    // loads pokemon list from API
     showLoadingMessage(); //shows loading message while wating for response
     return fetch(apiUrl)
       .then(function (response) {
@@ -169,6 +181,7 @@ let pokemonRepository = (function () {
         return response.json();
       })
       .then(function (json) {
+        //cycles through pokelist and updates cards
         json.results.forEach(function (item) {
           let pokemon = {
             name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // capitalizes first letter of pokemon name
@@ -182,8 +195,8 @@ let pokemonRepository = (function () {
       });
   }
 
+  // loads pokemon details from API and updates modal
   function loadDetails(item) {
-    // loads pokemon details from API
     let url = item.detailsUrl;
     return fetch(url)
       .then(function (response) {
@@ -199,29 +212,21 @@ let pokemonRepository = (function () {
       });
   }
 
+  // shows loading message
   function showLoadingMessage() {
-    // shows loading message
     let loading = document.querySelector("#loading");
     loading.classList.remove("is-hidden");
     loading.classList.add("is-visible");
   }
 
+  // hide loading message
   function hideLoadingMessage() {
-    // hide loading message
     let finishedLoading = document.querySelector("#loading");
     finishedLoading.classList.remove("is-visible");
     finishedLoading.classList.add("is-hidden");
-
-    function searchResult() {
-      let pokemonCards = document.querySelectorAll(".card");
-      console.log(pokemonCards);
-      pokemonCards.forEach(function (card) {
-        console.log(card);
-        card.classList.add("is-hidden");
-      });
-    }
   }
 
+  //create modal scaffolding
   function showModal(title, height, types, image) {
     // HTML variable elements for modal
     let modalContent = document.querySelector(".modal-content");
