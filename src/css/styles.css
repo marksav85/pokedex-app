@@ -1,59 +1,47 @@
 body {
-    background-color: #6890f0ff;
+  background-color: #6890f0ff;
 }
 
 form {
-    display: inline-block;
+  margin: 10px 0px;
 }
 
 input {
-padding: 4px 15px 4px 5px;
+  padding: 4px 15px 4px 5px;
 }
 
-#searchButton {
-display: inline-block;
-background-color:#fc999b;
-color:#ffffff;
-border-radius: 5px;
-text-align:center;
-margin-top:2px;
-padding: 5px 15px;
-}
-
-#searchButton:hover {
-cursor: pointer;
-opacity: .8;
+.search-bar {
+  padding: 0px;
 }
 
 .card {
-    background-color: #9e7fdc;
+  background-color: #9e7fdc;
 }
 
 .modal-footer button {
-    background-color: #78c850ff;
-    color: #fff;
-
+  background-color: #78c850ff;
+  color: #fff;
 }
 
 .is-visible {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 32px;
-    color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 32px;
+  color: #fff;
 }
 
 .is-hidden {
-    display: none;
+  display: none;
 }
 
 @media all and (max-width: 575px) {
-    #title {
-        font-size: 3.5rem;
-    }
+  #title {
+    font-size: 3.5rem;
+  }
 
-    .card {
-        width: 175px;
-    }
+  .card {
+    width: 175px;
+  }
 }

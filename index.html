@@ -55,10 +55,6 @@
                   >
                 </li>
               </ul>
-              <form name="search">
-                <input type="text" name="search-item" id="search-input" />
-              </form>
-              <button id="search-button">Add</button>
             </div>
           </nav>
         </div>
@@ -66,7 +62,25 @@
       <div class="col">
         <h1 id="title" class="display-3 text-center">My Pokedex</h1>
       </div>
+      <!-- <div>
+        <form name="search">
+          <input type="text" name="search-item" id="search-input" />
+        </form>
+      </div> -->
+
+      <div class="col justify-content-end search-bar">
+        <form>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search"
+            aria-label="Search"
+            id="search-input"
+          />
+        </form>
+      </div>
     </header>
+
     <main class="container text-center main-content" id="main-content">
       <div class="row">
         <div class="col">
