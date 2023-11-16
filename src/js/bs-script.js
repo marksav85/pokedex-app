@@ -10,6 +10,24 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
+  // fetches list of pokemon abilities
+  function getAllAbilities(pokemon) {
+    let pokeName = pokemon.name.toLowerCase();
+    let pokeUrl = "https://pokeapi.co/api/v2/pokemon/" + pokeName;
+    console.log(pokeUrl);
+    return fetch(pokeUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (pokeUrl) {
+        pokeUrl.abilities.forEach((entry) => {
+          console.log(entry.ability.name);
+          let pokeAbility = entry.ability.name;
+          return pokeAbility;
+        });
+      });
+  }
+
   //check if pokemon is an object and has a name property before adding to list
   function add(pokemon) {
     if (typeof pokemon === "object" && "name" in pokemon) {
@@ -96,8 +114,9 @@ let pokemonRepository = (function () {
     // adds list item to DOM
     let list = document.querySelector(".pokemon-list");
 
-    // create card classes
+    // create card and classes
     let card = document.createElement("div");
+    card.setAttribute("style", "min-width: 175px");
     card.classList.add(
       "card",
       "text-center",
@@ -113,43 +132,53 @@ let pokemonRepository = (function () {
       "col-xl-3",
       "col-xxl-2"
     );
-    // create card image attributes
-    card.setAttribute("style", "min-width: 175px");
+    // create card header and attributes
+    let cardHeader = document.createElement("div");
+    cardHeader.classList.add("card-header");
+    cardHeader.innerText = pokemon.name;
+
+    // create card body and attributes
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    // create card footer and attributes
+    let cardFooter = document.createElement("div");
+    cardFooter.classList.add("card-footer");
+
+    // create card image and attributes
     let cardImage = document.createElement("img");
     cardImage.classList.add("card-img-top", "w-50");
     cardImage.src = ""; // sets image source to empty string
     cardImage.alt = "pokemon image";
-    // create card body and button attributes
-    let cardBody = document.createElement("div");
-    cardBody.classList.add("card-body");
+
+    // create card button and attributes
     let cardButton = document.createElement("button");
     cardButton.classList.add("btn");
     cardButton.setAttribute("type", "button");
     cardButton.setAttribute("data-target", "#pokemonModal");
     cardButton.setAttribute("data-toggle", "modal");
-    /* cardButton.setAttribute(
-      "style",
-      "background-color: #78c850ff; color: #fff;"
-    ); */
-    //adds pokemon name to card button
-    cardButton.innerText = pokemon.name;
-    card.appendChild(cardImage);
-    card.appendChild(cardBody);
-    cardBody.appendChild(cardButton);
+    cardButton.innerText = "View Card";
 
+    // append card and attributes to DOM
     list.appendChild(card);
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    cardBody.appendChild(cardImage);
+    card.appendChild(cardFooter);
+    cardFooter.appendChild(cardButton);
+
     // fetches image and adds to card
     loadDetails(pokemon).then(() => {
       cardImage.src = pokemon.imageUrl;
     });
 
+    // adds event listener to button to display pokemon details
     cardButton.addEventListener("click", function () {
-      // adds event listener to button to display pokemon details
       showDetails(pokemon);
     });
   }
 
-  // CREATES MODAL
+  // FETCH POKEMON DATA FUNCTIONS
 
   // creates modal and adds pokemon details
   function showDetails(pokemon) {
@@ -159,15 +188,15 @@ let pokemonRepository = (function () {
         // checks if pokemon has one or two types
         showModal(
           pokemon.name,
-          `Height: ${pokemon.height} m`,
-          `Types: ${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
+          `${pokemon.height} m`,
+          `${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
           pokemon.imageUrl
         ); //outputs pokemon details with 2 types to modal
       } else {
         showModal(
           pokemon.name,
-          `Height: ${pokemon.height} m`,
-          `Type: ${pokemon.types[0].type.name}`,
+          `${pokemon.height} m`,
+          `${pokemon.types[0].type.name}`,
           pokemon.imageUrl
         ); //outputs pokemon details with 1 type to modal
       }
@@ -228,13 +257,17 @@ let pokemonRepository = (function () {
     finishedLoading.classList.add("is-hidden");
   }
 
+  // CREATE MODAL LAYOUT
+
   //create modal scaffolding
   function showModal(title, height, types, image) {
     // HTML variable elements for modal
     let modalContent = document.querySelector(".modal-content");
-    let modalBody = document.querySelector(".modal-body");
-    let modalTitle = document.querySelector(".modal-title");
     let modalHeader = document.querySelector(".modal-header");
+    let modalTitle = document.querySelector(".modal-title");
+    let modalBody = document.querySelector(".modal-body");
+    let modalHeight = document.querySelector(".modal-height");
+    let modalFooter = document.querySelector(".modal-footer");
 
     // Clear all existing modal content
 
@@ -249,28 +282,41 @@ let pokemonRepository = (function () {
       "background-color: #9e7fdc; color: #fff;"
     ); */
 
-    // create name element for modal
+    // create name element for modal title
     let nameElement = document.createElement("h1");
     nameElement.innerText = title;
 
-    // create height element for modal
-    let heightElement = document.createElement("p");
+    // create data elements for modal height data
+    let modalData = document.createElement("div");
+    modalData.classList.add("modal-data");
+    let heightLabel = document.createElement("p");
+    let heightElement = document.createElement("span");
+    heightLabel.innerText = "Height: ";
     heightElement.innerText = height;
-    heightElement.setAttribute("style", "font-weight: bold;");
 
-    // create types element for modal
-    let typesElement = document.createElement("p");
+    //create modal types data
+    let typesLabel = document.createElement("p");
+    let typesElement = document.createElement("span");
+    typesLabel.innerText = "Type: ";
     typesElement.innerText = types;
-    typesElement.setAttribute("style", "font-weight: bold;");
 
     // create image element for modal
+    let modalImage = document.createElement("div");
+    modalImage.classList.add("modal-image");
     let imageElement = document.createElement("img");
+    imageElement.classList.add("modal-image");
     imageElement.src = image;
 
+    // append modal info to DOM
+
     modalTitle.append(nameElement);
-    modalBody.append(heightElement);
-    modalBody.append(typesElement);
-    modalBody.append(imageElement);
+    modalBody.append(modalData);
+    modalData.append(heightLabel);
+    heightLabel.append(heightElement);
+    modalData.append(typesLabel);
+    typesLabel.append(typesElement);
+    modalBody.append(modalImage);
+    modalImage.append(imageElement);
   }
 
   return {
@@ -282,13 +328,15 @@ let pokemonRepository = (function () {
     loadDetails: loadDetails,
     searchItem: searchItem,
     searchResult: searchResult,
+    getAllAbilities: getAllAbilities,
   };
 })();
 
+// loads pokemon list from API
 pokemonRepository.loadList().then(function () {
-  // loads pokemon list from API
+  // loops through pokemonList
   pokemonRepository.getAll().forEach(function (pokemon) {
-    // loops through pokemonList
     pokemonRepository.addListItem(pokemon);
+    pokemonRepository.getAllAbilities(pokemon);
   });
 });
