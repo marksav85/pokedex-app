@@ -11,20 +11,46 @@ let pokemonRepository = (function () {
   }
 
   // fetches list of pokemon abilities
-  function getAllAbilities(pokemon) {
+
+  function getPokemonColor(pokemon) {
     let pokeName = pokemon.name.toLowerCase();
     let pokeUrl = "https://pokeapi.co/api/v2/pokemon/" + pokeName;
-    console.log(pokeUrl);
     return fetch(pokeUrl)
       .then(function (response) {
         return response.json();
       })
-      .then(function (pokeUrl) {
-        pokeUrl.abilities.forEach((entry) => {
-          console.log(entry.ability.name);
-          let pokeAbility = entry.ability.name;
-          return pokeAbility;
+      .then(function (pokemon) {
+        let pokeType = pokemon.types[0].type.name;
+
+        const typesData = [
+          { name: "normal", eff: "11111½10½111111111", color: "A8A878" },
+          { name: "fighting", eff: "21½½12½021111½212½", color: "C03028" },
+          { name: "flying", eff: "12111½21½112½11111", color: "A890F0" },
+          { name: "poison", eff: "111½½½1½0112111112", color: "A040A0" },
+          { name: "ground", eff: "110212½1221½211111", color: "E0C068" },
+          { name: "rock", eff: "1½21½121½211112111", color: "B8A038" },
+          { name: "bug", eff: "1½½½111½½½1212112½", color: "A8B820" },
+          { name: "ghost", eff: "0111111211111211½1", color: "705898" },
+          { name: "steel", eff: "11111211½½½1½12112", color: "B8B8D0" },
+          { name: "fire", eff: "11111½212½½2112½11", color: "F08030" },
+          { name: "water", eff: "1111221112½½111½11", color: "6890F0" },
+          { name: "grass", eff: "11½½22½1½½2½111½11", color: "78C850" },
+          { name: "electric", eff: "11210111112½½11½11", color: "F8D030" },
+          { name: "psychic", eff: "12121111½1111½1101", color: "F85888" },
+          { name: "ice", eff: "11212111½½½211½211", color: "98D8D8" },
+          { name: "dragon", eff: "11111111½111111210", color: "7038F8" },
+          { name: "dark", eff: "1½11111211111211½½", color: "705848" },
+          { name: "fairy", eff: "121½1111½½11111221", color: "EE99AC" },
+        ];
+
+        let color = null;
+        typesData.forEach((type) => {
+          if (type.name === pokeType) {
+            color = `#${type.color}`;
+          }
         });
+
+        return color; // Return color from the function
       });
   }
 
@@ -90,6 +116,7 @@ let pokemonRepository = (function () {
       }
     });
   }
+
   // displays all pokemon cards when search input is empty
   function showAllCards() {
     // Display all Pokémon cards
@@ -111,12 +138,26 @@ let pokemonRepository = (function () {
 
   // adds pokemon cards to DOM
   function addListItem(pokemon) {
-    // adds list item to DOM
+    // adds list item and card to DOM
     let list = document.querySelector(".pokemon-list");
-
-    // create card and classes
     let card = document.createElement("div");
-    card.setAttribute("style", "min-width: 175px");
+
+    // set background color to current pokemon
+    const cardColor = getPokemonColor(pokemon)
+      .then((color) => {
+        card.setAttribute(
+          "style",
+          `min-width: 175px; background-color: ${color};`
+        );
+        console.log(color); // Access the color here
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    console.log(cardColor);
+
+    // create classes
+
     card.classList.add(
       "card",
       "text-center",
@@ -132,6 +173,8 @@ let pokemonRepository = (function () {
       "col-xl-3",
       "col-xxl-2"
     );
+    // add color class
+
     // create card header and attributes
     let cardHeader = document.createElement("div");
     cardHeader.classList.add("card-header");
@@ -190,6 +233,8 @@ let pokemonRepository = (function () {
           pokemon.name,
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
+          `${pokemon.abilities[0].ability.name} ${pokemon.abilities[1].ability.name}`,
+
           pokemon.imageUrl
         ); //outputs pokemon details with 2 types to modal
       } else {
@@ -197,6 +242,8 @@ let pokemonRepository = (function () {
           pokemon.name,
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name}`,
+          `${pokemon.abilities[0].ability.name}`,
+
           pokemon.imageUrl
         ); //outputs pokemon details with 1 type to modal
       }
@@ -237,6 +284,7 @@ let pokemonRepository = (function () {
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
         item.types = details.types;
+        item.abilities = details.abilities;
       })
       .catch(function (e) {
         console.error(e);
@@ -260,7 +308,7 @@ let pokemonRepository = (function () {
   // CREATE MODAL LAYOUT
 
   //create modal scaffolding
-  function showModal(title, height, types, image) {
+  function showModal(title, height, types, abilities, image) {
     // HTML variable elements for modal
     let modalContent = document.querySelector(".modal-content");
     let modalHeader = document.querySelector(".modal-header");
@@ -299,6 +347,14 @@ let pokemonRepository = (function () {
     let typesElement = document.createElement("span");
     typesLabel.innerText = "Type: ";
     typesElement.innerText = types;
+    let typeColor = types;
+    console.log(typeColor);
+
+    // create modal abilities data
+    let abilitiesLabel = document.createElement("p");
+    let abilitiesElement = document.createElement("span");
+    abilitiesLabel.innerText = "Abilities: ";
+    abilitiesElement.innerText = abilities;
 
     // create image element for modal
     let modalImage = document.createElement("div");
@@ -315,6 +371,8 @@ let pokemonRepository = (function () {
     heightLabel.append(heightElement);
     modalData.append(typesLabel);
     typesLabel.append(typesElement);
+    modalData.append(abilitiesLabel);
+    abilitiesLabel.append(abilitiesElement);
     modalBody.append(modalImage);
     modalImage.append(imageElement);
   }
@@ -328,7 +386,7 @@ let pokemonRepository = (function () {
     loadDetails: loadDetails,
     searchItem: searchItem,
     searchResult: searchResult,
-    getAllAbilities: getAllAbilities,
+    getPokemonColor: getPokemonColor,
   };
 })();
 
@@ -337,6 +395,6 @@ pokemonRepository.loadList().then(function () {
   // loops through pokemonList
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
-    pokemonRepository.getAllAbilities(pokemon);
+    pokemonRepository.getPokemonColor(pokemon);
   });
 });
