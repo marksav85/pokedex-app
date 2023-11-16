@@ -1,168 +1,400 @@
-let pokemonRepository = (function () {
-    let pokemonList = [];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=120'
-  
-    function getAll() {
-      return pokemonList;
-    }
-  
-    
-    function add(pokemon) {
-      if (typeof pokemon === 'object' && 'name' in pokemon ){ // checks if input is an object and has a name property
-        pokemonList.push(pokemon);
-      } else { 
-        console.log('input is not an object');
-    };
-  };
-        
-  
-  function filter(word) { // filters pokemon by name
-    let filteredList = pokemonList.filter(function(pokemon) {
-      return pokemon.name.includes(word);
-    });
-    return filteredList;
-  }; 
-  
-  function addListItem(pokemon) { // adds list item to DOM
-    let list = document.querySelector('.pokemon-list');
-    
-    // create card
-    let card = document.createElement('div');
-    card.classList.add('card', 'text-center', 'd-inline-flex', 'align-items-center', 'justify-content-center', 'm-2', 'p-2', 'w-25', 'col-sm-12', 'col-md-6', 'col-lg-4', 'col-xl-3', 'col-xxl-2');
-    card.setAttribute('style', 'min-width: 175px');
-    let cardImage = document.createElement('img');
-    cardImage.classList.add('card-img-top', 'w-50');
-    cardImage.src = 'img/pokeball.png'  // sets image source to pokeball
-    cardImage.alt = 'pokemon image';
-    let cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
-    let cardButton = document.createElement('button');
-    cardButton.classList.add('btn');
-    cardButton.setAttribute('type', 'button');
-    cardButton.setAttribute('data-target', '#pokemonModal');
-    cardButton.setAttribute('data-toggle', 'modal');
-    cardButton.setAttribute('style', 'background-color: #78c850ff; color: #fff;')
-    cardButton.innerText = pokemon.name;
-    card.appendChild(cardImage);
-    card.appendChild(cardBody);
-    cardBody.appendChild(cardButton);
+//FETCH API
 
+// gets all pokemon from API ans creates a pokemon list
+
+let pokemonRepository = (function () {
+  let pokemonList = [];
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=120";
+
+  function getAll() {
+    return pokemonList;
+  }
+
+  // fetches list of pokemon abilities
+
+  function getPokemonColor(pokemon) {
+    let pokeName = pokemon.name.toLowerCase();
+    let pokeUrl = "https://pokeapi.co/api/v2/pokemon/" + pokeName;
+    return fetch(pokeUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (pokemon) {
+        let pokeType = pokemon.types[0].type.name;
+
+        const typesData = [
+          { name: "normal", eff: "11111½10½111111111", color: "A8A878" },
+          { name: "fighting", eff: "21½½12½021111½212½", color: "C03028" },
+          { name: "flying", eff: "12111½21½112½11111", color: "A890F0" },
+          { name: "poison", eff: "111½½½1½0112111112", color: "A040A0" },
+          { name: "ground", eff: "110212½1221½211111", color: "E0C068" },
+          { name: "rock", eff: "1½21½121½211112111", color: "B8A038" },
+          { name: "bug", eff: "1½½½111½½½1212112½", color: "A8B820" },
+          { name: "ghost", eff: "0111111211111211½1", color: "705898" },
+          { name: "steel", eff: "11111211½½½1½12112", color: "B8B8D0" },
+          { name: "fire", eff: "11111½212½½2112½11", color: "F08030" },
+          { name: "water", eff: "1111221112½½111½11", color: "6890F0" },
+          { name: "grass", eff: "11½½22½1½½2½111½11", color: "78C850" },
+          { name: "electric", eff: "11210111112½½11½11", color: "F8D030" },
+          { name: "psychic", eff: "12121111½1111½1101", color: "F85888" },
+          { name: "ice", eff: "11212111½½½211½211", color: "98D8D8" },
+          { name: "dragon", eff: "11111111½111111210", color: "7038F8" },
+          { name: "dark", eff: "1½11111211111211½½", color: "705848" },
+          { name: "fairy", eff: "121½1111½½11111221", color: "EE99AC" },
+        ];
+
+        let color = null;
+        typesData.forEach((type) => {
+          if (type.name === pokeType) {
+            color = `#${type.color}`;
+          }
+        });
+
+        return color; // Return color from the function
+      });
+  }
+
+  //check if pokemon is an object and has a name property before adding to list
+  function add(pokemon) {
+    if (typeof pokemon === "object" && "name" in pokemon) {
+      // checks if input is an object and has a name property
+      pokemonList.push(pokemon);
+    } else {
+      console.log("input is not an object");
+    }
+  }
+
+  // SEARCH FUNCTIONALITY
+
+  // filters the pokemonlist by name
+  function filterSearch(word) {
+    // filters pokemon by name
+    let filteredList = pokemonList.filter(function (pokemon) {
+      return pokemon.name.toLowerCase().includes(word.toLowerCase());
+    });
+    console.log(filteredList);
+    return filteredList;
+  }
+
+  // takes value of search input and filters pokemon list
+  function searchItem() {
+    let inputValue = document.getElementById("search-input").value;
+
+    if (inputValue === "") {
+      // If the input is empty, show all Pokémon cards
+      showAllCards();
+    } else {
+      let filteredPokemon = filterSearch(inputValue);
+
+      if (filteredPokemon.length === 0) {
+        // If no matching Pokémon found, handle accordingly (e.g., display a message)
+        alert("No matching Pokémon found!");
+        return;
+      }
+
+      console.log(filteredPokemon);
+      searchResult(filteredPokemon);
+    }
+  }
+  // targets pokemon cards and displays only cards matching search input
+  function searchResult(filteredPokemon) {
+    let pokemonCards = document.querySelectorAll(".card");
+
+    console.log(filteredPokemon);
+
+    pokemonCards.forEach(function (card) {
+      let cardName = card.querySelector("button");
+      let cardNameText = cardName.innerText;
+      if (
+        filteredPokemon.some((pokemon) => cardNameText.includes(pokemon.name))
+      ) {
+        card.classList.add("d-inline-flex");
+        card.classList.remove("d-none");
+      } else {
+        card.classList.add("d-none");
+        card.classList.remove("d-inline-flex");
+      }
+    });
+  }
+
+  // displays all pokemon cards when search input is empty
+  function showAllCards() {
+    // Display all Pokémon cards
+    let pokemonCards = document.querySelectorAll(".card");
+    pokemonCards.forEach(function (card) {
+      card.classList.add("d-inline-flex");
+      card.classList.remove("d-none");
+    });
+  }
+  // listens to search input for changes
+  let searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", function () {
+    // Adds event listener to input for live search
+    searchItem();
+    console.log("search input changed");
+  });
+
+  // CREATE POKEMON CARDS
+
+  // adds pokemon cards to DOM
+  function addListItem(pokemon) {
+    // adds list item and card to DOM
+    let list = document.querySelector(".pokemon-list");
+    let card = document.createElement("div");
+
+    // set background color to current pokemon
+    const cardColor = getPokemonColor(pokemon)
+      .then((color) => {
+        card.setAttribute(
+          "style",
+          `min-width: 175px; background-color: ${color};`
+        );
+        console.log(color); // Access the color here
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    console.log(cardColor);
+
+    // create classes
+
+    card.classList.add(
+      "card",
+      "text-center",
+      "d-inline-flex",
+      "align-items-center",
+      "justify-content-center",
+      "m-2",
+      "p-2",
+      "w-25",
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2"
+    );
+    // add color class
+
+    // create card header and attributes
+    let cardHeader = document.createElement("div");
+    cardHeader.classList.add("card-header");
+    cardHeader.innerText = pokemon.name;
+
+    // create card body and attributes
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    // create card footer and attributes
+    let cardFooter = document.createElement("div");
+    cardFooter.classList.add("card-footer");
+
+    // create card image and attributes
+    let cardImage = document.createElement("img");
+    cardImage.classList.add("card-img-top", "w-50");
+    cardImage.src = ""; // sets image source to empty string
+    cardImage.alt = "pokemon image";
+
+    // create card button and attributes
+    let cardButton = document.createElement("button");
+    cardButton.classList.add("btn");
+    cardButton.setAttribute("type", "button");
+    cardButton.setAttribute("data-target", "#pokemonModal");
+    cardButton.setAttribute("data-toggle", "modal");
+    cardButton.innerText = "View Card";
+
+    // append card and attributes to DOM
     list.appendChild(card);
-    
-    cardButton.addEventListener('click', function() { // adds event listener to button to display pokemon details
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    cardBody.appendChild(cardImage);
+    card.appendChild(cardFooter);
+    cardFooter.appendChild(cardButton);
+
+    // fetches image and adds to card
+    loadDetails(pokemon).then(() => {
+      cardImage.src = pokemon.imageUrl;
+    });
+
+    // adds event listener to button to display pokemon details
+    cardButton.addEventListener("click", function () {
       showDetails(pokemon);
     });
-  };
-  
-  function showDetails(pokemon) { // displays pokemon details
-    loadDetails(pokemon).then(function() {
-      if (pokemon.types.length > 1) { // checks if pokemon has one or two types
-        showModal(pokemon.name, `Height: ${pokemon.height} m`, `Types: ${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`, pokemon.imageUrl); //outputs pokemon details with 2 types to modal
+  }
+
+  // FETCH POKEMON DATA FUNCTIONS
+
+  // creates modal and adds pokemon details
+  function showDetails(pokemon) {
+    // displays pokemon details
+    loadDetails(pokemon).then(function () {
+      if (pokemon.types.length > 1) {
+        // checks if pokemon has one or two types
+        showModal(
+          pokemon.name,
+          `${pokemon.height} m`,
+          `${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
+          `${pokemon.abilities[0].ability.name} ${pokemon.abilities[1].ability.name}`,
+
+          pokemon.imageUrl
+        ); //outputs pokemon details with 2 types to modal
       } else {
-        showModal(pokemon.name, `Height: ${pokemon.height} m`, `Type: ${pokemon.types[0].type.name}`, pokemon.imageUrl); //outputs pokemon details with 1 type to modal
-      };
+        showModal(
+          pokemon.name,
+          `${pokemon.height} m`,
+          `${pokemon.types[0].type.name}`,
+          `${pokemon.abilities[0].ability.name}`,
+
+          pokemon.imageUrl
+        ); //outputs pokemon details with 1 type to modal
+      }
     });
   }
-  
-  function loadList() { // loads pokemon list from API
+
+  // LOADS POKEMON LIST FROM API
+  function loadList() {
     showLoadingMessage(); //shows loading message while wating for response
-    return fetch(apiUrl).then(function(response) {
-      hideLoadingMessage(); // hides loading message when response is received
-      return response.json();
-    }).then(function(json) {
-      json.results.forEach(function(item) {
-        let pokemon = {
-          name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // capitalizes first letter of pokemon name
-          detailsUrl: item.url
-        };
-        add(pokemon);
+    return fetch(apiUrl)
+      .then(function (response) {
+        hideLoadingMessage(); // hides loading message when response is received
+        return response.json();
+      })
+      .then(function (json) {
+        //cycles through pokelist and updates cards
+        json.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name.charAt(0).toUpperCase() + item.name.slice(1), // capitalizes first letter of pokemon name
+            detailsUrl: item.url,
+          };
+          add(pokemon);
+        });
+      })
+      .catch(function (e) {
+        console.error(e);
       });
-    }).catch(function(e) {
-      console.error(e);
-    });
   }
-  
-  function loadDetails(item) { // loads pokemon details from API
+
+  // loads pokemon details from API and updates modal
+  function loadDetails(item) {
     let url = item.detailsUrl;
-    return fetch(url).then(function(response) {
-      return response.json();
-    }).then(function(details) {
-      item.imageUrl = details.sprites.front_default;
-      item.height = details.height;
-      item.types = details.types;
-
-    }).catch(function(e) {
-      console.error(e);
-    });
-  }
-  
-  function showLoadingMessage() { // shows loading message
-    let loading = document.querySelector('#loading');
-    loading.classList.remove('is-hidden');
-    loading.classList.add('is-visible');
-  }
-  
-  function hideLoadingMessage() { // hide loading message
-    let finishedLoading = document.querySelector('#loading');
-    finishedLoading.classList.remove('is-visible');
-    finishedLoading.classList.add('is-hidden');
+    return fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (details) {
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
+        item.abilities = details.abilities;
+      })
+      .catch(function (e) {
+        console.error(e);
+      });
   }
 
-  function showModal(title, height, types, image) {
-    
+  // shows loading message
+  function showLoadingMessage() {
+    let loading = document.querySelector("#loading");
+    loading.classList.remove("is-hidden");
+    loading.classList.add("is-visible");
+  }
+
+  // hide loading message
+  function hideLoadingMessage() {
+    let finishedLoading = document.querySelector("#loading");
+    finishedLoading.classList.remove("is-visible");
+    finishedLoading.classList.add("is-hidden");
+  }
+
+  // CREATE MODAL LAYOUT
+
+  //create modal scaffolding
+  function showModal(title, height, types, abilities, image) {
     // HTML variable elements for modal
-    let modalContent = document.querySelector('.modal-content');
-    let modalBody = document.querySelector('.modal-body');
-    let modalTitle = document.querySelector('.modal-title');
-    let modalHeader = document.querySelector('.modal-header');
+    let modalContent = document.querySelector(".modal-content");
+    let modalHeader = document.querySelector(".modal-header");
+    let modalTitle = document.querySelector(".modal-title");
+    let modalBody = document.querySelector(".modal-body");
+    let modalHeight = document.querySelector(".modal-height");
+    let modalFooter = document.querySelector(".modal-footer");
 
     // Clear all existing modal content
-    
-    modalTitle.innerText = '';
-    modalBody.innerText = '';
-    modalBody.setAttribute('style', 'background-color: #fff; color: #78c850ff;');
-    modalContent.setAttribute('style', 'background-color: #9e7fdc; color: #fff;');
-    
-    // create name element for modal
-    let nameElement = document.createElement('h1');
+
+    modalTitle.innerText = "";
+    modalBody.innerText = "";
+    /* modalBody.setAttribute(
+      "style",
+      "background-color: #fff; color: #78c850ff;"
+    );
+    modalContent.setAttribute(
+      "style",
+      "background-color: #9e7fdc; color: #fff;"
+    ); */
+
+    // create name element for modal title
+    let nameElement = document.createElement("h1");
     nameElement.innerText = title;
 
-    // create height element for modal
-    let heightElement = document.createElement('p');
+    // create data elements for modal height data
+    let modalData = document.createElement("div");
+    modalData.classList.add("modal-data");
+    let heightLabel = document.createElement("p");
+    let heightElement = document.createElement("span");
+    heightLabel.innerText = "Height: ";
     heightElement.innerText = height;
-    heightElement.setAttribute('style', 'font-weight: bold;');
 
-    // create types element for modal
-    let typesElement = document.createElement('p');
+    //create modal types data
+    let typesLabel = document.createElement("p");
+    let typesElement = document.createElement("span");
+    typesLabel.innerText = "Type: ";
     typesElement.innerText = types;
-    typesElement.setAttribute('style', 'font-weight: bold;');
+    let typeColor = types;
+    console.log(typeColor);
+
+    // create modal abilities data
+    let abilitiesLabel = document.createElement("p");
+    let abilitiesElement = document.createElement("span");
+    abilitiesLabel.innerText = "Abilities: ";
+    abilitiesElement.innerText = abilities;
 
     // create image element for modal
-    let imageElement = document.createElement('img');
+    let modalImage = document.createElement("div");
+    modalImage.classList.add("modal-image");
+    let imageElement = document.createElement("img");
+    imageElement.classList.add("modal-image");
     imageElement.src = image;
 
+    // append modal info to DOM
+
     modalTitle.append(nameElement);
-    modalBody.append(heightElement);
-    modalBody.append(typesElement);
-    modalBody.append(imageElement);
-    
+    modalBody.append(modalData);
+    modalData.append(heightLabel);
+    heightLabel.append(heightElement);
+    modalData.append(typesLabel);
+    typesLabel.append(typesElement);
+    modalData.append(abilitiesLabel);
+    abilitiesLabel.append(abilitiesElement);
+    modalBody.append(modalImage);
+    modalImage.append(imageElement);
   }
-  
+
   return {
     add: add,
     getAll: getAll,
-    filter: filter,
+    filterSearch: filterSearch,
     addListItem: addListItem,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    searchItem: searchItem,
+    searchResult: searchResult,
+    getPokemonColor: getPokemonColor,
   };
-  
-  })();
-  
-  pokemonRepository.loadList().then(function() { // loads pokemon list from API
-  pokemonRepository.getAll().forEach(function(pokemon) { // loops through pokemonList
-    pokemonRepository.addListItem(pokemon);
-    });
-  });
+})();
 
-  
+// loads pokemon list from API
+pokemonRepository.loadList().then(function () {
+  // loops through pokemonList
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+    pokemonRepository.getPokemonColor(pokemon);
+  });
+});

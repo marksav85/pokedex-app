@@ -1,36 +1,149 @@
+/* GENERAL STYLES*/
+
 body {
-    background-color: #6890f0ff;
+  background-color: #6890f0ff;
 }
+
+form {
+  margin: 10px 0px;
+}
+
+input {
+  padding: 4px 15px 4px 5px;
+}
+
+/* SEARCH */
+
+.search-bar {
+  display: flex;
+  width: 100%;
+  padding: 0px;
+}
+
+.search-bar form {
+  width: 75%;
+  padding: 0px;
+}
+
+/* POKEMON LIST VIEW */
+
+.pokemon-list {
+  background-color: #fff;
+}
+
+/* CARD */
 
 .card {
-    background-color: #9e7fdc;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
 }
 
-.modal-footer button {
-    background-color: #78c850ff;
-    color: #fff;
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
+.card-header {
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+}
+
+.card-text {
+  color: #555;
+}
+
+.card-footer {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+/* MODAL */
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 20px;
+  align-items: start;
+  font-size: 1.2rem;
+}
+
+.modal-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  text-align: start;
+  width: 100%;
+}
+
+.modal-data p {
+  margin: 10px 0;
+}
+
+.modal-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.modal .modal-footer {
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #0056b3;
 }
 
 .is-visible {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    font-size: 32px;
-    color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 32px;
+  color: #fff;
 }
 
 .is-hidden {
-    display: none;
+  display: none;
 }
 
 @media all and (max-width: 575px) {
-    #title {
-        font-size: 3.5rem;
-    }
+  #title {
+    font-size: 3.5rem;
+  }
 
-    .card {
-        width: 175px;
-    }
+  .card {
+    width: 175px;
+  }
 }
