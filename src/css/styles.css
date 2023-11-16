@@ -34,7 +34,7 @@ input {
 /* CARD */
 
 .card {
-  background-color: #78c850;
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -46,7 +46,7 @@ input {
 }
 
 .card-header {
-  background-color: #78c850;
+  background-color: rgba(0, 0, 0, 0);
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
@@ -58,7 +58,7 @@ input {
 }
 
 .card-footer {
-  background-color: #78c850;
+  background-color: rgba(0, 0, 0, 0);
   border: none;
 }
 
@@ -95,6 +95,7 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  text-align: start;
   width: 100%;
 }
 
