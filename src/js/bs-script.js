@@ -187,6 +187,9 @@ let pokemonRepository = (function () {
     // create card footer and attributes
     let cardFooter = document.createElement("div");
     cardFooter.classList.add("card-footer");
+    let cardFooterLabel = document.createElement("p");
+    let cardFooterElement = document.createElement("span");
+    cardFooterLabel.innerText = "Pokedex Entry: #";
 
     // create card image and attributes
     let cardImage = document.createElement("img");
@@ -195,12 +198,11 @@ let pokemonRepository = (function () {
     cardImage.alt = "pokemon image";
 
     // create card button and attributes
-    let cardButton = document.createElement("button");
+    /* let cardButton = document.createElement("button");
     cardButton.classList.add("btn");
     cardButton.setAttribute("type", "button");
     cardButton.setAttribute("data-target", "#pokemonModal");
-    cardButton.setAttribute("data-toggle", "modal");
-    cardButton.innerText = "View Card";
+    cardButton.setAttribute("data-toggle", "modal"); */
 
     // append card and attributes to DOM
     list.appendChild(card);
@@ -208,17 +210,20 @@ let pokemonRepository = (function () {
     card.appendChild(cardBody);
     cardBody.appendChild(cardImage);
     card.appendChild(cardFooter);
-    cardFooter.appendChild(cardButton);
+    cardFooter.appendChild(cardFooterLabel);
+    cardFooterLabel.appendChild(cardFooterElement);
+    /* cardFooter.appendChild(cardButton); */
 
     // fetches image and adds to card
     loadDetails(pokemon).then(() => {
       cardImage.src = pokemon.imageUrl;
+      cardFooterElement.innerText = pokemon.id;
     });
 
     // adds event listener to button to display pokemon details
-    cardButton.addEventListener("click", function () {
+    /* cardButton.addEventListener("click", function () {
       showDetails(pokemon);
-    });
+    }); */
   }
 
   // FETCH POKEMON DATA FUNCTIONS
@@ -234,6 +239,7 @@ let pokemonRepository = (function () {
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
           `${pokemon.abilities[0].ability.name} ${pokemon.abilities[1].ability.name}`,
+          `#${pokemon.id}`,
 
           pokemon.imageUrl
         ); //outputs pokemon details with 2 types to modal
@@ -243,6 +249,7 @@ let pokemonRepository = (function () {
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name}`,
           `${pokemon.abilities[0].ability.name}`,
+          `${pokemon.id}`,
 
           pokemon.imageUrl
         ); //outputs pokemon details with 1 type to modal
@@ -285,6 +292,7 @@ let pokemonRepository = (function () {
         item.height = details.height;
         item.types = details.types;
         item.abilities = details.abilities;
+        item.id = details.id;
       })
       .catch(function (e) {
         console.error(e);
