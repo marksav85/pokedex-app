@@ -226,9 +226,9 @@ let pokemonRepository = (function () {
     });
 
     // adds event listener to button to display pokemon details
-    /* cardButton.addEventListener("click", function () {
+    card.addEventListener("click", function () {
       showDetails(pokemon);
-    }); */
+    });
   }
 
   // FETCH POKEMON DATA FUNCTIONS
