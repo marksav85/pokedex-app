@@ -177,8 +177,9 @@ let pokemonRepository = (function () {
 
     // create card header and attributes
     let cardHeader = document.createElement("div");
+    let cardTitle = document.createElement("h2");
     cardHeader.classList.add("card-header");
-    cardHeader.innerText = pokemon.name;
+    cardTitle.innerText = pokemon.name;
 
     // create card body and attributes
     let cardBody = document.createElement("div");
@@ -207,6 +208,7 @@ let pokemonRepository = (function () {
     // append card and attributes to DOM
     list.appendChild(card);
     card.appendChild(cardHeader);
+    card.appendChild(cardTitle);
     card.appendChild(cardBody);
     cardBody.appendChild(cardImage);
     card.appendChild(cardFooter);
