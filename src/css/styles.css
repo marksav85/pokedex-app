@@ -1,7 +1,7 @@
 /* GENERAL STYLES*/
 
 body {
-  background-color: #4687a3;
+  background: linear-gradient(to bottom, #4687a3, #d8bfd8);
 }
 
 form {
@@ -52,7 +52,7 @@ input {
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .card-header {
