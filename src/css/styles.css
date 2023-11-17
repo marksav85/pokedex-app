@@ -32,7 +32,7 @@ input {
 }
 
 .pokemon-list {
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #fcfcfc;
 }
 
@@ -46,7 +46,7 @@ input {
     rgba(0, 0, 0, 0.3)
   );
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s;
 }
@@ -84,29 +84,33 @@ input {
 /* MODAL */
 
 .modal-content {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 }
 
 .modal-header {
-  background-color: #007bff;
-  color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  color: #fcfcfc;
+  border-bottom: none;
 }
 
 .modal-title {
   font-size: 1.5rem;
 }
 
+.close {
+  color: #fff;
+  opacity: 1;
+}
+
 .modal-body {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  background-color: #fcfcfc;
+
   padding: 20px;
   align-items: start;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .modal-data {
@@ -126,6 +130,10 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.modal-image img {
   width: 100%;
 }
 

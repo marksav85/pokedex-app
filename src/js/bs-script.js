@@ -337,7 +337,10 @@ let pokemonRepository = (function () {
     // set background color to current pokemon
     const modalColor = getPokemonColor(color)
       .then((color) => {
-        modalContent.setAttribute("style", `background-color: ${color};`);
+        modalContent.setAttribute(
+          "style",
+          `background-color: ${color}; color: ${color};`
+        );
       })
       .catch((error) => {
         console.error("Error:", error);
