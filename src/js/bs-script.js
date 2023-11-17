@@ -164,7 +164,7 @@ let pokemonRepository = (function () {
       "d-inline-flex",
       "align-items-center",
       "justify-content-center",
-      "m-2",
+      "m-3",
       "p-2",
       "w-25",
       "col-sm-12",
@@ -178,7 +178,7 @@ let pokemonRepository = (function () {
     // create card header and attributes
     let cardHeader = document.createElement("div");
     cardHeader.classList.add("card-header");
-    let cardTitle = document.createElement("h2");
+    let cardTitle = document.createElement("h3");
     cardTitle.classList.add("card-title");
     cardTitle.innerText = pokemon.name;
 
@@ -190,7 +190,9 @@ let pokemonRepository = (function () {
     let cardFooter = document.createElement("div");
     cardFooter.classList.add("card-footer");
     let cardFooterLabel = document.createElement("p");
+    cardFooterLabel.classList.add("card-footer-label");
     let cardFooterElement = document.createElement("span");
+    cardFooterElement.classList.add("card-footer-element");
     cardFooterLabel.innerText = "Pokedex Entry: #";
 
     // create card image and attributes

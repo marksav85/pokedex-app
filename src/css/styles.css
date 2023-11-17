@@ -1,7 +1,7 @@
 /* GENERAL STYLES*/
 
 body {
-  background-color: #6890f0ff;
+  background-color: #4687a3;
 }
 
 form {
@@ -27,9 +27,13 @@ input {
 
 /* POKEMON LIST VIEW */
 
+#main-content {
+  display: flex;
+}
+
 .pokemon-list {
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #fcfcfc;
 }
 
 /* CARD */
@@ -41,7 +45,6 @@ input {
     rgba(0, 0, 0, 0),
     rgba(0, 0, 0, 0.3)
   );
-
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -65,8 +68,17 @@ input {
 }
 
 .card-footer {
+  display: flex;
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  text-align: start;
+}
+
+.card-footer p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: start;
 }
 
 /* MODAL */
