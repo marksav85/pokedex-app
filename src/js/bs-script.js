@@ -190,7 +190,7 @@ let pokemonRepository = (function () {
 
     // create card image and attributes
     let cardImage = document.createElement("img");
-    cardImage.classList.add("card-img-top", "w-50");
+    cardImage.classList.add("card-img-top", "w-100");
     cardImage.src = ""; // sets image source to empty string
     cardImage.alt = "pokemon image";
 
@@ -281,7 +281,7 @@ let pokemonRepository = (function () {
         return response.json();
       })
       .then(function (details) {
-        item.imageUrl = details.sprites.front_default;
+        item.imageUrl = details.sprites.front_shiny;
         item.height = details.height;
         item.types = details.types;
         item.abilities = details.abilities;
