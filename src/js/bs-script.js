@@ -103,7 +103,7 @@ let pokemonRepository = (function () {
     console.log(filteredPokemon);
 
     pokemonCards.forEach(function (card) {
-      let cardName = card.querySelector("button");
+      let cardName = card.querySelector(".card-title");
       let cardNameText = cardName.innerText;
       if (
         filteredPokemon.some((pokemon) => cardNameText.includes(pokemon.name))
@@ -177,8 +177,9 @@ let pokemonRepository = (function () {
 
     // create card header and attributes
     let cardHeader = document.createElement("div");
-    let cardTitle = document.createElement("h2");
     cardHeader.classList.add("card-header");
+    let cardTitle = document.createElement("h2");
+    cardTitle.classList.add("card-title");
     cardTitle.innerText = pokemon.name;
 
     // create card body and attributes
