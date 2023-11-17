@@ -202,11 +202,11 @@ let pokemonRepository = (function () {
     cardImage.alt = "pokemon image";
 
     // create card button and attributes
-    /* let cardButton = document.createElement("button");
-    cardButton.classList.add("btn");
-    cardButton.setAttribute("type", "button");
-    cardButton.setAttribute("data-target", "#pokemonModal");
-    cardButton.setAttribute("data-toggle", "modal"); */
+    /*  let cardButton = document.createElement("button");
+    cardButton.classList.add("btn"); */
+    card.setAttribute("type", "button");
+    card.setAttribute("data-target", "#pokemonModal");
+    card.setAttribute("data-toggle", "modal");
 
     // append card and attributes to DOM
     list.appendChild(card);
