@@ -149,12 +149,10 @@ let pokemonRepository = (function () {
           "style",
           `min-width: 175px; background-color: ${color};`
         );
-        console.log(color); // Access the color here
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-    console.log(cardColor);
 
     // create classes
 
@@ -240,6 +238,7 @@ let pokemonRepository = (function () {
       if (pokemon.types.length > 1) {
         // checks if pokemon has one or two types
         showModal(
+          pokemon,
           pokemon.name,
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
@@ -250,6 +249,7 @@ let pokemonRepository = (function () {
         ); //outputs pokemon details with 2 types to modal
       } else {
         showModal(
+          pokemon,
           pokemon.name,
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name}`,
@@ -321,7 +321,7 @@ let pokemonRepository = (function () {
   // CREATE MODAL LAYOUT
 
   //create modal scaffolding
-  function showModal(title, height, types, abilities, image) {
+  function showModal(color, title, height, types, abilities, id, image) {
     // HTML variable elements for modal
     let modalContent = document.querySelector(".modal-content");
     let modalHeader = document.querySelector(".modal-header");
@@ -334,14 +334,14 @@ let pokemonRepository = (function () {
 
     modalTitle.innerText = "";
     modalBody.innerText = "";
-    /* modalBody.setAttribute(
-      "style",
-      "background-color: #fff; color: #78c850ff;"
-    );
-    modalContent.setAttribute(
-      "style",
-      "background-color: #9e7fdc; color: #fff;"
-    ); */
+    // set background color to current pokemon
+    const modalColor = getPokemonColor(color)
+      .then((color) => {
+        modalContent.setAttribute("style", `background-color: ${color};`);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
     // create name element for modal title
     let nameElement = document.createElement("h1");
@@ -361,7 +361,6 @@ let pokemonRepository = (function () {
     typesLabel.innerText = "Type: ";
     typesElement.innerText = types;
     let typeColor = types;
-    console.log(typeColor);
 
     // create modal abilities data
     let abilitiesLabel = document.createElement("p");
@@ -373,7 +372,7 @@ let pokemonRepository = (function () {
     let modalImage = document.createElement("div");
     modalImage.classList.add("modal-image");
     let imageElement = document.createElement("img");
-    imageElement.classList.add("modal-image");
+    imageElement.classList.add("modal-element");
     imageElement.src = image;
 
     // append modal info to DOM
