@@ -191,7 +191,7 @@ let pokemonRepository = (function () {
     cardFooterLabel.classList.add("card-footer-label");
     let cardFooterElement = document.createElement("span");
     cardFooterElement.classList.add("card-footer-element");
-    cardFooterLabel.innerText = "Pokedex Entry: #";
+    cardFooterLabel.innerText = "Pokedex Entry: ";
 
     // create card image and attributes
     let cardImage = document.createElement("img");
@@ -220,7 +220,7 @@ let pokemonRepository = (function () {
     // fetches image and adds to card
     loadDetails(pokemon).then(() => {
       cardImage.src = pokemon.imageUrl;
-      cardFooterElement.innerText = pokemon.id;
+      cardFooterElement.innerText = "#" + pokemon.id;
     });
 
     // adds event listener to button to display pokemon details
@@ -243,7 +243,7 @@ let pokemonRepository = (function () {
           `${pokemon.height} m`,
           `${pokemon.types[0].type.name} ${pokemon.types[1].type.name}`,
           `${pokemon.abilities[0].ability.name} ${pokemon.abilities[1].ability.name}`,
-          `#${pokemon.id}`,
+          `${pokemon.id}`,
 
           pokemon.imageUrl
         ); //outputs pokemon details with 2 types to modal
