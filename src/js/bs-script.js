@@ -264,10 +264,8 @@ let pokemonRepository = (function () {
 
   // LOADS POKEMON LIST FROM API
   function loadList() {
-    showLoadingMessage(); //shows loading message while wating for response
     return fetch(apiUrl)
       .then(function (response) {
-        hideLoadingMessage(); // hides loading message when response is received
         return response.json();
       })
       .then(function (json) {
@@ -304,19 +302,17 @@ let pokemonRepository = (function () {
       });
   }
 
-  // shows loading message
-  function showLoadingMessage() {
-    let loading = document.querySelector("#loading");
-    loading.classList.remove("is-hidden");
-    loading.classList.add("is-visible");
-  }
+  //LOADING SCREEN
 
-  // hide loading message
-  function hideLoadingMessage() {
-    let finishedLoading = document.querySelector("#loading");
-    finishedLoading.classList.remove("is-visible");
-    finishedLoading.classList.add("is-hidden");
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Simulates a delay witg a timer so content can load
+    setTimeout(function () {
+      // Hide the loading overlay
+      document.getElementById("loading-overlay").style.display = "none";
+      // Show the content
+      document.getElementById("loading-finished").style.display = "block";
+    }, 2000); // Delay length
+  });
 
   // CREATE MODAL LAYOUT
 
