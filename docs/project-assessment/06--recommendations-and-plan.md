@@ -1,6 +1,6 @@
 # Recommendations and decision checkpoint
 
-> Task 1 baseline retained below. See the dated Task 2 update at the end for current implementation and verification status.
+> Historical Task 1/2 records retained below. See the dated Task 3 update at the end for current implementation and verification status.
 
 ## Overall recommendation
 
@@ -51,3 +51,16 @@ Before sign-off, connect an available browser or perform a manual check using th
 The official live URL is now known, and its active files matched the original baseline during this task. No deployment was performed, so the live application continues to represent that baseline rather than the local fixes.
 
 Defer dependency migration/replacement, bright-color contrast/layout refinements requiring rendered evidence, historical artifact decisions and developer-tool cleanup to a separately reviewed stage. Do not add Pokémon features, expand beyond 120, redesign or change architecture before the later project decisions. No commits, pushes or deployment changes were made. Stop for review of the local stabilization changes.
+
+## Approved Task 3 completion checkpoint — 2026-10-13
+
+The user explicitly approved report 07's four decisions and implementation. Data/cache extensions, responsive explorer, native dialog/variants, active dependency removal, regression tests and README updates are complete. Baseline 11 tests passed, data stage 14 passed, final suite 23 passed. Syntax/CSS/HTML/contrast-pair/whitespace diagnostics passed; preserved-file hashes match. No browser was available, so actual desktop/mobile rendering and native modal accessibility remain the review gate.
+
+Next action is browser/manual review of the implemented UI against supplied Stitch references and report 04's checklist. Test instructions/setup are in README. No extra design exploration, dependency framework migration, feature expansion, historical cleanup or companion work is authorized. Commit/push/deployment require separate approval and were not performed. The live site remains a separate, unchanged deployment; this local implementation is ready for source review with explicitly pending browser checks.
+
+
+## Publication approval — 2026-10-13
+
+The developer reports visually reviewing the available preview: main interface, Pokémon artwork, search and detail modal appear correct. This is user-reported preview validation, not an automated browser/accessibility audit. Commit, push and deployment of the current implementation are explicitly approved. Final production desktop/mobile checks will be performed by the developer. Final pre-publication regression suite: 23 passed, 0 failed; syntax and patch-whitespace checks passed.
+
+Existing GitHub Pages configuration was read from GitHub: branch gh-pages, root /, legacy branch build, HTTPS enabled, official URL https://marksav85.github.io/pokedex-app/. Publication will advance the existing branch without changing hosting configuration. Nine Stitch reference files (approximately 1.8 MB total) are included; deferred docs/planning content remains ignored and untracked. Deployment completion is reported separately in the conversation after GitHub build/live-file verification.

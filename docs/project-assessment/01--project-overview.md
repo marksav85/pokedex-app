@@ -1,6 +1,6 @@
 # Project overview
 
-> Task 1 baseline retained below. See the dated Task 2 update at the end for current implementation and verification status.
+> Historical Task 1/2 records retained below. See the dated Task 3 update at the end for current implementation and verification status.
 
 Assessment date: 2026-10-13. Assessment-only; workflow: `../workflow--application-review-and-modernization.md`.
 
@@ -33,3 +33,9 @@ Task 2 supersedes the assessment-only permissions for this stage: active source 
 The user confirmed https://marksav85.github.io/pokedex-app/ as the official live URL. HTTP retrieval of its HTML, active script and CSS succeeded via an approved network diagnostic. All three matched the pre-change local files byte-for-byte. Local static serving also succeeded. No browser was connected, so there is still no rendered visual or browser journey verification.
 
 Targeted fixes are implemented locally: correct height/all abilities, native card buttons and image alt, complete search states and submit prevention, real pending/failure feedback, shared cached details, six-request concurrency and stale-modal guards. Stack and 120-item scope remain unchanged. README now documents actual setup/features/limitations and the live link. Source-level tests pass; this does not establish production readiness or browser accessibility. Changes are not committed or deployed. See the Task 2 verification in report 04.
+
+## Approved Task 3 implementation — 2026-10-13
+
+The approved Lumina Dex / Stitch redesign is implemented locally using standard CSS and the existing vanilla-JavaScript repository module. The first 120 Pokémon, name-only search and stabilization protections remain. Cards now show normal official artwork, three-digit IDs and type badges; a native dialog adds normal/shiny selection, kilograms, a general English description and six labelled base-stat bars while retaining metres, types and all abilities.
+
+Bootstrap, external jQuery, Popper and tota11y are no longer loaded. Native dialog/standard CSS replace their active behavior; Promise/fetch polyfills and historical files remain. Documentation and tests are updated. 23 fixture/source regression cases pass; no browser is connected, so rendering, native focus/inertness and cross-browser behavior remain unverified. Changes are uncommitted and undeployed. See report 07's completion record.

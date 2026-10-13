@@ -1,6 +1,6 @@
 # Architecture and integrations
 
-> Task 1 baseline retained below. See the dated Task 2 update at the end for current implementation and verification status.
+> Historical Task 1/2 records retained below. See the dated Task 3 update at the end for current implementation and verification status.
 
 ```text
 index.html + active CSS + CDN UI libraries + local helpers
@@ -28,3 +28,11 @@ The earlier 361-call description is the preserved pre-change baseline. Current f
 Full successful initialization now calculates 1 list + 120 details = 121 JSON requests, excluding sprites/CDNs. The fixture-based call counter measured the same: 361 old / 121 new and a peak of six new concurrent JSON requests. This is not a measurement of live network transfers or performance. Failed details add a request only when explicitly retried; reload starts a new session.
 
 Responses require HTTP success and usable JSON schemas; active requests have a 15-second AbortController timeout. Current browsers with native fetch/AbortController are the supported target; no IE11 support is claimed. Height stays in decimetres in cached data and is divided by ten for display. Types and abilities are mapped independently. A selection counter invalidated by a new selection or modal hide prevents late results/errors from replacing the current view. Bootstrap's data API continues to handle modal opening, closing and focus; actual focus behavior remains unverified.
+
+## Task 3 architecture update — 2026-10-13
+
+Same static page and IIFE repository module; no framework/build migration. CSS Grid/Flexbox and native dialog replace Bootstrap layout/modal and the single jQuery hide listener. Native close/cancel/pointer handlers manage selection invalidation, scroll locking and trigger/search focus restoration.
+
+Detail cache remains keyed by detailsUrl and now normalizes normal/shiny artwork/sprites, optional weight, named base stats and species URL. Separate species promise cache follows species.url only on detail access. Both resources share the six-request scheduler/15-second timeout and evict failed cache entries. Queued interactive work is prioritized without cancelling shared requests. Core detail rendering is independent of description failure; selection/variant guards protect late callbacks.
+
+Fixture measurements: initial 121 JSON calls, 123 with two distinct species opened, peak six active. Reopening cached details/toggling artwork adds zero JSON requests. Images/fonts are excluded from those counts; total browser traffic/performance has not been measured. Normal artwork is the default; matching sprite and unavailable placeholders provide bounded fallbacks. Images below the first four cards are marked lazy. No persistent cache or TTL is claimed.

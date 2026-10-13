@@ -1,6 +1,6 @@
 # Repository inventory and safety
 
-> Task 1 baseline retained below. See the dated Task 2 update at the end for current implementation and verification status.
+> Historical Task 1/2 records retained below. See the dated Task 3 update at the end for current implementation and verification status.
 
 Date: 2026-10-13. Branch `main`, HEAD `976ae10` (2023-11-20, loading animation). Origin: `https://github.com/marksav85/pokedex-app.git`; readable Git history. Initial status: `?? docs/`; this pre-existing untracked directory and workflow were preserved. Assessment folder was empty. No ancestor/repository AGENTS.md was found in inspected locations. No credentials or environment configuration identified in inspected tracked files; this is not a full historical secret scan.
 
@@ -29,3 +29,11 @@ Read-only checks: Git status/branch/remotes/history, complete relevant source an
 Initial status for this task remained `?? docs/`; no tracked application edits were present. Branch/HEAD are unchanged. Modified active files: `index.html`, `src/js/bs-script.js`, `src/css/styles.css`; README corrected. Added `tests/stabilization.test.cjs`, using only Node built-ins and a minimal DOM double; no package manifest, dependency installation or build system was introduced. All six assessment reports received dated updates preserving the Task 1 baseline.
 
 Temporary artifacts for live/baseline comparisons and two public API samples were stored in /tmp. A temporary Python static server served the repository on 127.0.0.1:8000; no deployment settings were changed. Historical vanilla/, dist/, assets, vendored dependencies and the workflow were left untouched. Validation commands: `node --check src/js/bs-script.js`, `node tests/stabilization.test.cjs`, `git diff --check`; baseline comparison can additionally use `POKEDEX_BASELINE=/path/to/original/bs-script.js node tests/stabilization.test.cjs`.
+
+## Task 3 implementation inventory — 2026-10-13
+
+Task start: main at d849258, pre-existing untracked assets/ and report 07. Modified active files: index.html, src/css/styles.css, src/js/bs-script.js, README.md and tests/stabilization.test.cjs. Reports 01–07 record current scope/results. No package manifest/build tooling or application dependencies were added. No branch, commit, push or deployment action occurred.
+
+The DOM double now reads actual index.html hooks and supplies a limited native-dialog interface; tests retain stabilization cases and cover additional data/cache/artwork/modal logic. The historical optional POKEDEX_BASELINE comparison is no longer part of the updated harness because it relied on removed Bootstrap markup; Task 2's measured comparison remains historical evidence.
+
+Hash comparison confirms vanilla/, dist/, img/, supplied Stitch files, shared workflow and any present docs/planning files are unchanged. Vendored Promise/fetch/tota11y files were not edited or deleted. No static server was needed this turn because browser availability inventory was empty.

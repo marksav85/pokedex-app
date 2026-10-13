@@ -1,6 +1,6 @@
 # Consolidated findings
 
-> Task 1 baseline retained below. See the dated Task 2 update at the end for current implementation and verification status.
+> Historical Task 1/2 records retained below. See the dated Task 3 update at the end for current implementation and verification status.
 
 Date: 2026-10-13. Priorities reflect a secondary portfolio demonstration. No critical exposure or data-loss issue established.
 
@@ -48,3 +48,11 @@ The consolidated table above remains the assessment baseline. Current dispositio
 | F11 | Rendering/contrast/mobile/focus evidence still unavailable; no browser connected |
 
 No new framework or build tool was introduced. AbortController requires a current supported browser; retained compatibility polyfills do not imply IE11 support. Cache is not persistent and request failures can be retried by reopening a card; initial failure asks for page reload. CDN failures remain an external dependency risk, and the old libraries/tota11y, bright type-color contrast and historical asset paths remain candidates for later review rather than unapproved changes here.
+
+## Task 3 risk disposition — 2026-10-13
+
+Active Bootstrap/jQuery/Popper/tota11y dependencies and associated hooks/utilities are removed; files remain for historical use. This resolves the application's dependence on their old CDN UI versions, without claiming a complete security audit of retained helpers. No new framework/dependency or publisher workflow was introduced.
+
+Core safeguards remain: HTTP/schema/timeout checks, failure eviction, bounded requests, in-flight/success caching, accessible native controls, visible errors and latest-selection guards. Missing weight/stats/artwork do not invalidate otherwise usable core data. Species-only failure is local and retryable. General descriptions carry no game-version claim; actual variant URLs replace generated hue-rotation behavior.
+
+Highest remaining uncertainty is native-browser accessibility/rendering: dialog focus/inertness/scroll behavior, narrow layouts, real images and visual fidelity have not been tested. Artwork is larger than former sprites, mitigated by reserved image areas/lazy loading; network cost is unmeasured. Current-browser dialog/fetch/AbortController support is required; no IE11 fallback was added. Keep external API/font/image reliability and retained vendored-helper review separate from the approved scope. Historical files and companion expansion remain untouched.

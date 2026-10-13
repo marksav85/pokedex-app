@@ -3,150 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link rel="icon" type="image/png" href="./img/pokemon.ico" sizes="32x32" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="description" content="Explore the first 120 Pokémon, their artwork, abilities and base stats." />
+    <link rel="icon" href="img/pokemon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="src/css/styles.css" />
-    <title>My Pokedex App</title>
+    <title>Pokédex — National Catalog</title>
   </head>
-  <body class="text-light background">
-    <header class="container">
-      <div class="row">
-        <div class="col-6"></div>
-        <div class="col d-flex justify-content-end">
-          <nav class="navbar navbar-expand-sm navbar-dark">
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a
-                    class="nav-link"
-                    href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon"
-                    target="_blank"
-                    >Bulbapedia <span class="sr-only">(current)</span></a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="https://pokeapi.co/" target="_blank"
-                    >PokeAPI</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </div>
-      <div class="col">
-        <h1 id="title" class="display-3 text-center">My Pokedex</h1>
-      </div>
-
-      <div class="col justify-content-center search-bar">
-        <form>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search"
-            aria-label="Search"
-            id="search-input"
-            disabled
-          />
-        </form>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to Pokémon</a>
+    <header class="site-header">
+      <div class="page-width header-inner">
+        <a class="brand" href="#main-content" aria-label="Pokédex home">
+          <span class="brand-mark" aria-hidden="true"><span class="pokeball"></span></span>
+          <span><span class="brand-title">Pokédex</span><span class="brand-caption">Explore artwork, abilities and species details</span></span>
+        </a>
+        <span class="catalog-label">First 120 Pokémon</span>
       </div>
     </header>
-
-    <main class="container text-center main-content" id="main-content">
-      <div class="row">
-        <div class="col">
-          <!-- Modal -->
-          <div
-            class="modal fade text-success"
-            id="pokemonModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h2 class="modal-title" id="exampleModalLabel">
-                    Modal title
-                  </h2>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="modal-height"></div>
-                </div>
-                <div class="modal-footer"></div>
-              </div>
-            </div>
-          </div>
-          <div id="loading-overlay" role="status" aria-label="Loading Pokémon">
-            <div class="loader" aria-hidden="true"></div>
-            <span class="sr-only">Loading Pokémon…</span>
-          </div>
-          <p id="application-status" class="text-dark bg-light rounded p-2" role="status" hidden></p>
-          <p id="search-status" class="text-dark bg-light rounded p-2" role="status" hidden></p>
-          <div
-            id="loading-finished"
-            class="pokemon-list align-items-center"
-            style="display: none"
-          ></div>
+    <main class="page-width" id="main-content" tabindex="-1">
+      <section class="catalog-intro" aria-labelledby="catalog-title">
+        <div>
+          <p class="eyebrow"><span class="source-badge">Powered by PokéAPI</span><span>Kanto · Generation I</span></p>
+          <h1 id="catalog-title">National Catalog</h1>
+          <p class="intro-copy">Discover the Pokémon world through artwork, abilities and the details that make each species unique.</p>
         </div>
-      </div>
+        <p class="catalog-count"><span class="count-label">In this catalog</span><strong>120 Pokémon</strong></p>
+      </section>
+      <section class="search-console" aria-label="Search the catalog">
+        <form id="search-form" role="search">
+          <label for="search-input">Search Pokémon by name</label>
+          <div class="search-field">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+            <input id="search-input" type="search" placeholder="Search Pokémon by name…" autocomplete="off" disabled />
+            <button id="clear-search" class="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+          </div>
+        </form>
+        <p class="result-count" id="result-count" aria-live="polite" aria-atomic="true">Loading catalog…</p>
+      </section>
+      <div id="loading-overlay" class="loading-state" role="status"><span class="loader" aria-hidden="true"></span><span>Loading Pokémon…</span></div>
+      <p id="application-status" class="application-status" role="status" hidden></p>
+      <section id="search-status" class="empty-state" aria-labelledby="empty-title" hidden>
+        <h2 id="empty-title">No matching Pokémon found.</h2>
+        <p>Try another name or clear your search to explore the catalog.</p>
+        <button id="reset-search" class="primary-button" type="button">Clear search</button>
+      </section>
+      <ul id="pokemon-grid" class="pokemon-grid" aria-label="Pokémon catalog" aria-busy="true"></ul>
     </main>
-    <footer class="container">
-      <div class="row">
-        <div class="col"></div>
-        <div class="col-6"></div>
-        <div class="col"></div>
+    <footer class="site-footer">
+      <div class="page-width footer-inner">
+        <p><span class="status-dot" aria-hidden="true"></span>A Pokémon portfolio project · Data from PokéAPI</p>
+        <nav aria-label="Reference links"><a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon" target="_blank" rel="noopener noreferrer">Bulbapedia</a></nav>
       </div>
     </footer>
-
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+    <dialog id="pokemon-dialog" class="pokemon-dialog" aria-labelledby="detail-title">
+      <span class="sheet-handle" aria-hidden="true"></span>
+      <button id="dialog-close" class="dialog-close" type="button" aria-label="Close Pokémon details" autofocus>×</button>
+      <div id="detail-content" class="modal-body"></div>
+    </dialog>
     <script src="src/js/promise-polyfill.js"></script>
     <script src="src/js/fetch.umd.js"></script>
-    <!-- <script src="dist/script.js"></script> -->
     <script src="src/js/bs-script.js"></script>
-    <script src="src/js/tota11y.min.js"></script>
   </body>
 </html>

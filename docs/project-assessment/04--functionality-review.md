@@ -1,6 +1,6 @@
 # Functionality and visual review
 
-> Task 1 baseline retained below. See the dated Task 2 update at the end for current implementation and verification status.
+> Historical Task 1/2 records retained below. See the dated Task 3 update at the end for current implementation and verification status.
 
 Evidence: repository inspection, relative-path diagnostics and syntax checks, not browser execution. **No user journey has been verified working and no browser failure was reproduced.** Confirmed source defects below mean demonstrable implementation problems, not runtime test results.
 
@@ -67,3 +67,24 @@ Browser tooling: Chrome creation failed because Chrome was unavailable; the surf
 ### Presentation and scope
 
 Classification remains **Undetermined** because rendered evidence is unavailable. The gradient, rounded cards, layout classes, shiny sprites, original type palette and modal structure were retained. Buttons inherit the heading appearance; added focus outlines, neutral pending/failed card color and concise status text support the approved accessibility/loading fixes. No layout redesign or responsive CSS restructure was attempted. Visual equivalence is an implementation intention, not a verified screenshot result. Existing concerns about bright-color contrast and mobile modal fit remain for browser review.
+
+## Task 3 completed checks — 2026-10-13
+
+The approved design is translated into active source. This supersedes old Bootstrap/shiny-only implementation descriptions, not their historical evidence. Browser inventory returned no apps/browsers, so no rendered screenshots or native browser journeys were verified.
+
+`node tests/stabilization.test.cjs`: **23 passed, 0 failed**. Original 11 stabilization scenarios retained with new markup assertions; data/cache stage passed 14 before interface changes; final suite adds variants, optional/missing fields, stat order/labels, weight units, species cache/retry, stale species/image guards, clear controls and native-dialog handler logic. Tests use fixtures and an HTML-backed DOM/dialog double; handler results do not prove native keyboard activation, focus containment or background inertness.
+
+Confirmed in fixtures: 120 cards/normal artwork/three-digit IDs/types; name-only matching, clear/no-match and prevented submit; independent all-ability rendering; metres/kilograms; six stat rows with full screen-reader text, named field mapping and missing values; real normal/shiny URLs, same-variant sprite fallback, unavailable images and disabled missing-shiny option; initial/core/species pending/error/empty/retry states; cache reuse and six-request cap; stale detail/species/variant/close responses blocked. Close/cancel/backdrop handlers lock/unlock scroll and restore trigger or search focus in the double, including a delayed-close focus regression.
+
+Static diagnostics passed: JS syntax, CSS parser, unique static IDs, label/anchor targets, local asset references and patch whitespace. Selected opaque CSS contrast pairs pass 4.5:1: body text 14.41, muted text on elevated surface 5.59, badges 11.13, coral action text 5.76, hidden-ability text 8.46. These calculations are not a full rendered accessibility audit; ambient overlays, focus states and real images still need browser inspection.
+
+Approved visual adaptations: no filters/sorting/favorites/accounts/parties/evolution/cries, accurate 120-item copy, normal official artwork, names rather than ability-effect prose, no card HP or stat totals, two cards from 360px through tablet/four at 1024px and one below 360px. Three-digit IDs, native modal, readable badge text and ordinary CSS follow the approved plan. Actual visual fidelity is pending; no screenshot equivalence claim.
+
+Remaining browser checks: 320/343/390px, tablet and 1280/1440px; portrait/landscape/200% zoom; initial/live images and font fallback; mouse/Enter/Space, Escape/backdrop, tab/shift-tab containment, focus return, background inertness, mobile internal scrolling/close visibility, reduced motion, console/network errors and full contrast. Approved redesign implementation is complete within available tooling; its rendered quality remains unverified.
+
+
+## Publication approval — 2026-10-13
+
+The developer reports visually reviewing the available preview: main interface, Pokémon artwork, search and detail modal appear correct. This is user-reported preview validation, not an automated browser/accessibility audit. Commit, push and deployment of the current implementation are explicitly approved. Final production desktop/mobile checks will be performed by the developer. Final pre-publication regression suite: 23 passed, 0 failed; syntax and patch-whitespace checks passed.
+
+Existing GitHub Pages configuration was read from GitHub: branch gh-pages, root /, legacy branch build, HTTPS enabled, official URL https://marksav85.github.io/pokedex-app/. Publication will advance the existing branch without changing hosting configuration. Nine Stitch reference files (approximately 1.8 MB total) are included; deferred docs/planning content remains ignored and untracked. Deployment completion is reported separately in the conversation after GitHub build/live-file verification.
