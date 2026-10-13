@@ -1,9 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Explore the first 120 Pokémon, their artwork, abilities and base stats." />
+    <meta
+      name="description"
+      content="Explore the first 120 Pokémon, their artwork, abilities and base stats."
+    />
     <link rel="icon" href="img/favicon_set/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon_set/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon_set/favicon-32x32.png" />
@@ -11,7 +14,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicon_set/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="src/css/styles.css" />
     <title>Pokédex — National Catalog</title>
   </head>
@@ -21,8 +27,15 @@
     <header class="site-header">
       <div class="page-width header-inner">
         <a class="brand" href="#main-content" aria-label="Pokédex home">
-          <span class="brand-mark" aria-hidden="true"><span class="pokeball"></span></span>
-          <span><span class="brand-title">Pokédex</span><span class="brand-caption">Explore artwork, abilities and species details</span></span>
+          <span class="brand-mark" aria-hidden="true"
+            ><span class="pokeball"></span
+          ></span>
+          <span
+            ><span class="brand-title">Pokédex</span
+            ><span class="brand-caption"
+              >Explore artwork, abilities and species details</span
+            ></span
+          >
         </a>
         <span class="catalog-label">First 120 Pokémon</span>
       </div>
@@ -30,44 +43,130 @@
     <main class="page-width" id="main-content" tabindex="-1">
       <section class="catalog-intro" aria-labelledby="catalog-title">
         <div>
-          <p class="eyebrow"><span class="source-badge">Powered by PokéAPI</span><span>Kanto · Generation I</span></p>
+          <p class="eyebrow">
+            <span class="source-badge">Powered by PokéAPI</span
+            ><span>Kanto · Generation I</span>
+          </p>
           <h1 id="catalog-title">National Catalog</h1>
-          <p class="intro-copy">Discover the Pokémon world through artwork, abilities and the details that make each species unique.</p>
+          <p class="intro-copy">
+            Discover the Pokémon world through artwork, abilities and the
+            details that make each species unique.
+          </p>
         </div>
-        <p class="catalog-count"><span class="count-label">In this catalog</span><strong>120 Pokémon</strong></p>
+        <p class="catalog-count">
+          <span class="count-label">In this catalog</span
+          ><strong>120 Pokémon</strong>
+        </p>
       </section>
       <!-- Name search and feedback for the dynamically rendered catalog. -->
       <section class="search-console" aria-label="Search the catalog">
         <form id="search-form" role="search">
           <label for="search-input">Search Pokémon by name</label>
           <div class="search-field">
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
-            <input id="search-input" type="search" placeholder="Search Pokémon by name…" autocomplete="off" disabled />
-            <button id="clear-search" class="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search Pokémon by name…"
+              autocomplete="off"
+              disabled
+            />
+            <button
+              id="clear-search"
+              class="clear-search"
+              type="button"
+              aria-label="Clear search"
+              hidden
+            >
+              ×
+            </button>
           </div>
         </form>
-        <p class="result-count" id="result-count" aria-live="polite" aria-atomic="true">Loading catalog…</p>
+        <p
+          class="result-count"
+          id="result-count"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          Loading catalog…
+        </p>
       </section>
-      <div id="loading-overlay" class="loading-state" role="status"><span class="loader" aria-hidden="true"></span><span>Loading Pokémon…</span></div>
-      <p id="application-status" class="application-status" role="status" hidden></p>
-      <section id="search-status" class="empty-state" aria-labelledby="empty-title" hidden>
+      <div id="loading-overlay" class="loading-state" role="status">
+        <span class="loader" aria-hidden="true"></span
+        ><span>Loading Pokémon…</span>
+      </div>
+      <p
+        id="application-status"
+        class="application-status"
+        role="status"
+        hidden
+      ></p>
+      <section
+        id="search-status"
+        class="empty-state"
+        aria-labelledby="empty-title"
+        hidden
+      >
         <h2 id="empty-title">No matching Pokémon found.</h2>
         <p>Try another name or clear your search to explore the catalog.</p>
-        <button id="reset-search" class="primary-button" type="button">Clear search</button>
+        <button id="reset-search" class="primary-button" type="button">
+          Clear search
+        </button>
       </section>
-      <ul id="pokemon-grid" class="pokemon-grid" aria-label="Pokémon catalog" aria-busy="true"></ul>
+      <ul
+        id="pokemon-grid"
+        class="pokemon-grid"
+        aria-label="Pokémon catalog"
+        aria-busy="true"
+      ></ul>
     </main>
     <!-- Project attribution and external reference links. -->
     <footer class="site-footer">
       <div class="page-width footer-inner">
-        <p><span class="status-dot" aria-hidden="true"></span>A Pokémon portfolio project · Data from PokéAPI</p>
-        <nav aria-label="Reference links"><a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon" target="_blank" rel="noopener noreferrer">Bulbapedia</a></nav>
+        <p>
+          <span class="status-dot" aria-hidden="true"></span>A Pokémon portfolio
+          project · Data from PokéAPI
+        </p>
+        <nav aria-label="Reference links">
+          <a
+            href="https://pokeapi.co/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >PokéAPI</a
+          ><a
+            href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Bulbapedia</a
+          >
+        </nav>
       </div>
     </footer>
     <!-- Shared detail dialog; the close control stays outside replaced content. -->
-    <dialog id="pokemon-dialog" class="pokemon-dialog" aria-labelledby="detail-title">
+    <dialog
+      id="pokemon-dialog"
+      class="pokemon-dialog"
+      aria-labelledby="detail-title"
+    >
       <span class="sheet-handle" aria-hidden="true"></span>
-      <button id="dialog-close" class="dialog-close" type="button" aria-label="Close Pokémon details" autofocus>×</button>
+      <button
+        id="dialog-close"
+        class="dialog-close"
+        type="button"
+        aria-label="Close Pokémon details"
+        autofocus
+      >
+        ×
+      </button>
       <div id="detail-content" class="modal-body"></div>
     </dialog>
     <script src="src/js/bs-script.js"></script>
