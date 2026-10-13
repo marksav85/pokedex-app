@@ -13,6 +13,7 @@
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to Pokémon</a>
+    <!-- Persistent catalog identity. -->
     <header class="site-header">
       <div class="page-width header-inner">
         <a class="brand" href="#main-content" aria-label="Pokédex home">
@@ -31,6 +32,7 @@
         </div>
         <p class="catalog-count"><span class="count-label">In this catalog</span><strong>120 Pokémon</strong></p>
       </section>
+      <!-- Name search and feedback for the dynamically rendered catalog. -->
       <section class="search-console" aria-label="Search the catalog">
         <form id="search-form" role="search">
           <label for="search-input">Search Pokémon by name</label>
@@ -51,12 +53,14 @@
       </section>
       <ul id="pokemon-grid" class="pokemon-grid" aria-label="Pokémon catalog" aria-busy="true"></ul>
     </main>
+    <!-- Project attribution and external reference links. -->
     <footer class="site-footer">
       <div class="page-width footer-inner">
         <p><span class="status-dot" aria-hidden="true"></span>A Pokémon portfolio project · Data from PokéAPI</p>
         <nav aria-label="Reference links"><a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon" target="_blank" rel="noopener noreferrer">Bulbapedia</a></nav>
       </div>
     </footer>
+    <!-- Shared detail dialog; the close control stays outside replaced content. -->
     <dialog id="pokemon-dialog" class="pokemon-dialog" aria-labelledby="detail-title">
       <span class="sheet-handle" aria-hidden="true"></span>
       <button id="dialog-close" class="dialog-close" type="button" aria-label="Close Pokémon details" autofocus>×</button>

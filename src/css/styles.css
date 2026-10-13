@@ -1,4 +1,4 @@
-/* Lumina Dex foundations: standard CSS, no runtime utility framework. */
+/* Design tokens: shared palette, spacing and typography. */
 :root {
   color-scheme: dark;
   --background: #111319;
@@ -18,6 +18,7 @@
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 16px;
 }
+/* Base layout and controls; hidden states must override component display rules. */
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--background); color: var(--text); line-height: 1.5; }
@@ -35,10 +36,11 @@ button, input { -webkit-tap-highlight-color: transparent; }
 h1, h2, h3, p { margin: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 .page-width { width: 100%; max-width: 1440px; margin: auto; padding-inline: var(--page-padding); }
+/* Keyboard navigation and text that remains available to screen readers. */
 .skip-link { position: fixed; z-index: 10; top: 8px; left: 16px; padding: 12px; background: var(--elevated); transform: translateY(-150%); border-radius: 12px; }
 .skip-link:focus { transform: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-/* Shell and type */
+/* Page shell, branding and catalog introduction. */
 .site-header { position: sticky; top: 0; z-index: 2; background: rgb(17 19 25 / 95%); backdrop-filter: blur(16px); border-bottom: 1px solid rgb(255 255 255 / 3%); }
 .header-inner { min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
@@ -58,7 +60,7 @@ h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -.03
 .catalog-count { display: none; white-space: nowrap; padding: 16px 24px; background: var(--surface); border-radius: 18px; }
 .count-label { display: block; font-size: 10px; text-transform: uppercase; color: var(--muted); letter-spacing: .05em; }
 .catalog-count strong { font-size: 14px; }
-/* Search, feedback and empty states */
+/* Search controls, loading feedback and empty states. */
 .search-console { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: var(--surface); border-radius: var(--radius); margin-bottom: 28px; }
 #search-form { flex: 1; min-width: 0; }
 #search-form label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
@@ -131,12 +133,13 @@ h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -.03
 .ability { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 12px; background: var(--elevated); border-radius: 12px; font-size: 14px; font-weight: 600; }
 .hidden-ability { font-size: 10px; color: var(--teal); text-transform: uppercase; }
 .retry-description { min-height: 44px; align-self: start; color: var(--text); border: 1px solid var(--border); background: var(--elevated); border-radius: 12px; padding: 8px 16px; }
+/* Attribution and reference links. */
 .site-footer { margin-top: 64px; background: #0c0e14; padding-block: 32px; color: var(--muted); font-size: 12px; }
 .footer-inner { display: flex; flex-direction: column; gap: 16px; }
 .site-footer nav { display: flex; gap: 24px; }
 .site-footer a { min-height: 44px; display: inline-flex; align-items: center; }
 .status-dot { display: inline-block; width: 7px; height: 7px; background: var(--teal); border-radius: 50%; margin-right: 8px; }
-/* Responsive adaptations approved in the implementation plan. */
+/* Two-column phone/tablet grid, four-column desktop grid and split dialog layout. */
 @media (min-width: 360px) { .pokemon-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 640px) {
   :root { --gutter: 20px; --page-padding: 32px; }
@@ -165,10 +168,12 @@ h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -.03
   .detail-image-slot { width: min(100%, 320px); }
   .sheet-handle { display: none; }
 }
+/* Respect motion preferences without changing interaction states. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .pokemon-card:hover { transform: none; }
 }
+/* Keep type accents usable when color mixing is unavailable. */
 @supports not (background: color-mix(in srgb, red, transparent)) {
   .card-trigger::before { opacity: .1; background: var(--type-color); }
   .type-badge { border-color: var(--border); }

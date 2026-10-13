@@ -7,6 +7,7 @@ const vm = require('node:vm');
 const source = fs.readFileSync('src/js/bs-script.js', 'utf8');
 const base = 'https://pokeapi.co/api/v2/pokemon/';
 
+// Minimal DOM/dialog double: exercise app handlers, not native browser behavior.
 class Element {
   constructor(tag = 'div') {
     this.tagName = tag.toUpperCase();
@@ -81,7 +82,7 @@ function pageDocument() {
 }
 
 const listResult = names => ({ results: names.map((name, index) => ({ name, url: base + (index + 1) + '/' })) });
-// Public API sample values retrieved 2026-10-13; only used fields are retained.
+// Synthetic fixtures use sample species values and placeholder image URLs; no network access.
 const detail = (id = 1, extra = {}) => ({
   id, height: 7, weight: 69,
   sprites: {
@@ -95,6 +96,7 @@ const detail = (id = 1, extra = {}) => ({
   ...extra,
 });
 const response = (json, status = 200) => ({ ok: status >= 200 && status < 300, status, json: async () => json });
+// Controlled promises reproduce slow responses, failures and out-of-order completion.
 const deferred = () => {
   let resolve, reject;
   const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
@@ -102,6 +104,7 @@ const deferred = () => {
 };
 const tick = () => new Promise(resolve => setImmediate(resolve));
 
+// Each VM isolates app state; injected fetch/timers make requests and timeouts observable.
 function boot(responder, { script = source, timers } = {}) {
   const document = pageDocument();
   const ids = Object.fromEntries(document.descendants().filter(node => node.id).map(node => [node.id, node]));
@@ -292,7 +295,7 @@ test('late modal success or failure cannot replace a newer selection or a closed
   first.reject(new Error('offline')); await app.ready; await tick();
   assert.equal(app.title().textContent, 'Charmander');
   assert.match(app.body().textContent, /0.6 m/);
-  // A retry that resolves after hide must not overwrite the hidden modal.
+  // A pending detail response must not populate a closed dialog.
   const late = deferred();
   const closing = boot(url => url.includes('?') ? Promise.resolve(response(listResult(['bulbasaur']))) : late.promise);
   await tick(); click(closing.cards()[0]); await tick();
@@ -328,6 +331,7 @@ test('stalled HTTP requests abort after 15 seconds and release loading state', a
   assert.equal(callbacks.size, 0);
 });
 
+// Extended detail fields and independent species caching.
 test('new optional data normalizes artwork, weight and reordered base stats', async () => {
   const app = boot(async url => response(url.includes('?') ? listResult(['bulbasaur']) : detail(1, {
     weight: 69,
@@ -390,6 +394,7 @@ test('modal shows metric units and six labelled stat values by name, including m
   assert.equal(missing.body().querySelectorAll('.stat-row').length, 6);
 });
 
+// Artwork variants, bounded fallbacks and stale image callbacks.
 test('normal/shiny controls use actual artwork with no JSON refetch and reset on reopen', async () => {
   const app = boot(async url => response(url.includes('?') ? listResult(['bulbasaur']) : detail()));
   await app.ready; click(app.cards()[0]); await tick();
@@ -476,6 +481,7 @@ test('late species success/error cannot overwrite a newer selection or closed di
   assert.equal(closed.body().querySelector('.description').textContent, 'Loading description…');
 });
 
+// Dialog lifecycle handlers and focus fallback; native focus containment is not simulated.
 test('dialog handlers lock scroll and restore focus on close/Escape and guarded backdrop', async () => {
   const app = boot(async url => response(url.includes('?') ? listResult(['bulbasaur']) : detail()));
   await app.ready; const trigger = app.cards()[0].querySelector('button'); click(app.cards()[0]); await tick();

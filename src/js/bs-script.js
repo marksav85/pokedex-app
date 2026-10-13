@@ -1,8 +1,9 @@
+// Repository state, networking and UI behavior share one page-session module.
 let pokemonRepository = (function () {
   let pokemonList = [];
   const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=120';
   function getAll() { return pokemonList; }
-  // Shared detail promises cache successful responses and in-flight requests.
+  // Detail and species caches retain pending promises and successful responses.
   const detailCache = new Map();
   const speciesCache = new Map();
   const requestQueue = [];
@@ -23,11 +24,13 @@ let pokemonRepository = (function () {
   function fetchJson(url, priority = false) {
     return new Promise(function (resolve, reject) {
       const request = { url: url, resolve: resolve, reject: reject };
+      // Interactive detail requests take precedence over queued card loading.
       if (priority) { requestQueue.unshift(request); } else { requestQueue.push(request); }
       runRequests();
     });
   }
 
+  // Six shared slots limit API traffic; both success and failure release a slot.
   function runRequests() {
     while (activeRequests < maxRequests && requestQueue.length) {
       const request = requestQueue.shift();
@@ -57,6 +60,7 @@ let pokemonRepository = (function () {
     return loadDetails(pokemon).then(function () { return colorFromDetails(pokemon); });
   }
 
+  // Persistent DOM hooks and selection counters are shared by all dialog renders.
   const list = document.getElementById('pokemon-grid');
   const searchInput = document.getElementById('search-input');
   const dialog = document.getElementById('pokemon-dialog');
@@ -74,6 +78,7 @@ let pokemonRepository = (function () {
     ['speed', 'SPE', 'Speed'],
   ];
 
+  // Build API-derived content as text rather than interpolated HTML.
   function element(tag, className, text) {
     const node = document.createElement(tag);
     if (className) { node.className = className; }
@@ -103,6 +108,7 @@ let pokemonRepository = (function () {
     if (pokemon && typeof pokemon === 'object' && typeof pokemon.name === 'string') { pokemonList.push(pokemon); }
   }
 
+  // Search only the loaded catalog; keep existing cards and update visibility.
   function filterSearch(word) {
     return pokemonList.filter(function (pokemon) { return pokemon.name.toLowerCase().includes(word.toLowerCase()); });
   }
@@ -146,6 +152,7 @@ let pokemonRepository = (function () {
     image.loading = lazy ? 'lazy' : 'eager';
     image.decoding = 'async';
     const feedback = element('span', 'artwork-feedback');
+    // Try official artwork, then the same variant's sprite; never recolor normal art.
     const candidates = [
       { url: pokemon.artwork[variant], fallback: false },
       { url: pokemon.sprite[variant], fallback: true },
@@ -170,6 +177,7 @@ let pokemonRepository = (function () {
     return stage;
   }
 
+  // Cards render progressively and remain available for retry after detail failures.
   function addListItem(pokemon, index) {
     const card = element('li', 'pokemon-card');
     card.dataset.pokemonName = pokemon.name;
@@ -217,6 +225,7 @@ let pokemonRepository = (function () {
     content.setAttribute('aria-busy', String(pending));
   }
 
+  // Late responses may update a view only while its original selection is open.
   function currentSelection(selection) { return dialog.open && selection === modalSelection; }
 
   function promoteRequest(url) {
@@ -224,6 +233,7 @@ let pokemonRepository = (function () {
     if (index >= 0) { requestQueue.unshift(requestQueue.splice(index, 1)[0]); }
   }
 
+  // Open immediately with pending feedback, then reuse the shared detail request.
   function showDetails(pokemon, trigger) {
     const selection = ++modalSelection;
     selectedVariant = 'normal';
@@ -246,6 +256,7 @@ let pokemonRepository = (function () {
     });
   }
 
+  // Species failures affect only the description, leaving core details usable.
   function requestDescription(pokemon, selection, description, retry) {
     description.textContent = 'Loading description…';
     description.setAttribute('aria-busy', 'true');
@@ -265,6 +276,7 @@ let pokemonRepository = (function () {
     });
   }
 
+  // One content tree serves both layouts; CSS determines placement.
   function renderModal(pokemon, selection) {
     content.textContent = '';
     content.setAttribute('aria-busy', 'false');
@@ -285,6 +297,7 @@ let pokemonRepository = (function () {
     function updateVariant(variant) {
       if (!currentSelection(selection)) { return; }
       selectedVariant = variant;
+      // A separate token prevents old image errors from affecting a new variant.
       const imageSelection = ++variantSelection;
       imageSlot.textContent = '';
       imageSlot.appendChild(artworkStage(pokemon, variant, function () {
@@ -312,6 +325,7 @@ let pokemonRepository = (function () {
     retry.hidden = true;
     retry.addEventListener('click', function () { requestDescription(pokemon, selection, description, retry); });
     const metrics = element('dl', 'physical-metrics');
+    // PokéAPI uses decimetres and hectograms; convert units only for display.
     [['Height', pokemon.height / 10 + ' m'], ['Weight', pokemon.weight === null ? 'Unavailable' : pokemon.weight / 10 + ' kg']].forEach(function (metric) {
       const group = element('div', 'metric');
       group.append(element('dt', '', metric[0]), element('dd', '', metric[1]));
@@ -319,6 +333,7 @@ let pokemonRepository = (function () {
     });
     const stats = element('section', 'stats-section');
     stats.appendChild(element('h3', 'section-title', 'Base Stats'));
+    // Match stats by API name; bars use a 255-point scale beside actual values.
     statLabels.forEach(function (stat) {
       const value = pokemon.stats[stat[0]];
       const available = Number.isFinite(value);
@@ -354,6 +369,7 @@ let pokemonRepository = (function () {
     requestDescription(pokemon, selection, description, retry);
   }
 
+  // All dismissal paths invalidate pending work and restore focus once.
   function closeDialog() {
     // Invalidate immediately, before the browser's queued close event.
     modalSelection += 1;
@@ -366,6 +382,7 @@ let pokemonRepository = (function () {
     if (dialog.open) { return; }
     document.body.classList.remove('dialog-open');
     content.setAttribute('aria-busy', 'false');
+    // Explicit dismissal and the queued close event can both reach cleanup.
     if (focusRestored) { return; }
     focusRestored = true;
     const trigger = activeTrigger;
@@ -382,10 +399,12 @@ let pokemonRepository = (function () {
     const bounds = dialog.getBoundingClientRect();
     return event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom);
   }
+  // Require both pointer endpoints on the backdrop to avoid closing after a drag.
   dialog.addEventListener('pointerdown', function (event) { backdropPointer = outside(event); });
   dialog.addEventListener('pointerup', function (event) { if (backdropPointer && outside(event)) { closeDialog(); } backdropPointer = false; });
   dialog.addEventListener('pointercancel', function () { backdropPointer = false; });
 
+  // Load names first, then progressively populate cards through the shared queue.
   function initialize() {
     searchInput.disabled = true;
     list.setAttribute('aria-busy', 'true');
@@ -405,7 +424,7 @@ let pokemonRepository = (function () {
       list.setAttribute('aria-busy', 'false');
     });
   }
-  // LOADS POKEMON LIST FROM API
+  // Validate the list before exposing it and enforce the 120-Pokémon scope.
   function loadList() {
     return fetchJson(apiUrl).then(function (json) {
       if (!json || !Array.isArray(json.results) || json.results.some(function (item) {
@@ -422,6 +441,7 @@ let pokemonRepository = (function () {
     });
   }
 
+  // Cache raw details by URL so card rendering and dialog access deduplicate requests.
   function loadDetails(item, priority = false) {
     const url = item.detailsUrl;
     if (!detailCache.has(url)) {
@@ -444,6 +464,7 @@ let pokemonRepository = (function () {
       });
       detailCache.set(url, pending);
     }
+    // Normalize optional data without rejecting otherwise usable core details.
     return detailCache.get(url).then(function (details) {
       const sprites = details.sprites || {};
       item.height = details.height;
@@ -460,6 +481,7 @@ let pokemonRepository = (function () {
       item.sprite = { normal: imageUrl(sprites.front_default), shiny: imageUrl(sprites.front_shiny) };
       item.speciesUrl = details.species && typeof details.species.url === 'string' &&
         details.species.url.startsWith('https://pokeapi.co/api/v2/pokemon-species/') ? details.species.url : null;
+      // Named lookup avoids depending on the order of the API's stat array.
       item.stats = {};
       if (Array.isArray(details.stats)) {
         details.stats.forEach(function (entry) {
@@ -472,6 +494,7 @@ let pokemonRepository = (function () {
     });
   }
 
+  // Fetch species lazily for a general English description, cached per species URL.
   function loadSpecies(pokemon) {
     const url = pokemon.speciesUrl;
     if (!url) { return Promise.resolve(null); }
@@ -492,4 +515,5 @@ let pokemonRepository = (function () {
   return { add, getAll, filterSearch, addListItem, loadList, loadDetails, loadSpecies,
     searchItem, searchResult, getPokemonColor, initialize };
 })();
+// The script runs after the page markup; this promise marks initial card completion.
 let pokemonReady = pokemonRepository.initialize();
