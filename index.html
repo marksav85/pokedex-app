@@ -66,6 +66,7 @@
             placeholder="Search"
             aria-label="Search"
             id="search-input"
+            disabled
           />
         </form>
       </div>
@@ -105,12 +106,12 @@
               </div>
             </div>
           </div>
-          <div id="loading-overlay">
-            <div class="loader"></div>
+          <div id="loading-overlay" role="status" aria-label="Loading Pokémon">
+            <div class="loader" aria-hidden="true"></div>
+            <span class="sr-only">Loading Pokémon…</span>
           </div>
-          <!-- <div id="loading" class="is-hidden">
-            <h1>Page is Loading</h1>
-          </div> -->
+          <p id="application-status" class="text-dark bg-light rounded p-2" role="status" hidden></p>
+          <p id="search-status" class="text-dark bg-light rounded p-2" role="status" hidden></p>
           <div
             id="loading-finished"
             class="pokemon-list align-items-center"

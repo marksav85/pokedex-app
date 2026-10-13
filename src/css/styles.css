@@ -106,6 +106,30 @@ input {
   text-align: start;
 }
 
+/* Native card triggers retain the existing card appearance. */
+.card-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.card:focus-within {
+  outline: 3px solid #172b4d;
+  outline-offset: 3px;
+}
+
+.card-trigger:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.modal-feedback {
+  color: #343a40;
+}
+
 /* MODAL */
 
 .modal-content {

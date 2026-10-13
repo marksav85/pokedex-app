@@ -1,25 +1,39 @@
 # Pokédex
 
-This a small Pokédex app to display a list of Pokémon.
+A small portfolio app for browsing the first 120 Pokémon from [PokéAPI](https://pokeapi.co/).
 
-Click on the pokemon to see further information about them, such as their height, types and an image.
+[Open the live application](https://marksav85.github.io/pokedex-app/).
 
-**Key Features**
-- Load data from an external source (API)
-- View a list of items
-- On user action (e.g., by clicking on a list item), view details for that item
+- Type-colored cards show shiny sprites and Pokédex entry numbers.
+- Search names within the loaded list; matching is case-insensitive. Clear search to restore all cards.
+- Open a card with the mouse, Enter or Space to view height in metres, types and all listed abilities.
+- Loading, no-results and request failures have visible feedback. Open a failed card again to retry details; reload to retry the initial list.
+- Details are cached in memory for the current page session, with at most six concurrent JSON requests.
 
-**Technical Content**
+Built with HTML, CSS and vanilla JavaScript, Bootstrap 4.3.1, jQuery 3.3.1 and Popper.js 1.14.7. UI libraries and fonts load from CDNs; Promise/fetch polyfills and tota11y are included locally. There is no backend, package installation or build step.
 
-- The app loads data from an external API - the Pokémon API.
-- The app displays a list of items loaded from that API after the page is loaded.
-- The app enables the viewing of more details for a given list item (like a Pokémon) on demand, such as when clicking on a list item
-- The app has CSS styling.The JavaScript code is formatted according to ESLint rules.The JavaScript code is formatted via Prettier.
-- The JavaScript code is manually formatted.The app uses at least one additional complex UI pattern - a modal - for details or touch interactions.
-- The app does throw any errors when being used.
-- The app is deployed to a publicly accessible platform - GitHub PagesThe app works in Chrome, Firefox, Safari, Edge, and Internet Explorer 11.
+## Run locally
 
+From the repository root, with Python 3 installed:
 
-**Additional:**
-- The app shows loading indicators while loading data.
-- The app handles errors (such as trying to load data while offline) and shows user-friendly error messages.
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:8000/`. Stop the server with Ctrl+C. Active files are `index.html`, `src/js/bs-script.js` and `src/css/styles.css`; `dist/` and `vanilla/` contain historical work and are not used by the main page.
+
+Optional dependency-free source-level regression checks require Node.js 18 or newer:
+
+```sh
+node tests/stabilization.test.cjs
+```
+
+These checks use fixture responses and a small DOM double; they do not verify visual layout or Bootstrap/browser keyboard and focus behavior.
+
+## Limitations
+
+Internet access to PokéAPI, sprite hosting and CDN assets is required. Search covers only the first 120 Pokémon. Cached details are cleared on reload; missing sprites display an image-unavailable message.
+
+Target current Chrome, Firefox, Safari and Edge with native fetch and AbortController support. Internet Explorer 11 is unsupported. Cross-browser, desktop/mobile visual and modal focus verification remains pending; previous blanket compatibility claims were not verified. Bootstrap/jQuery versions are intentionally retained for this stabilization stage; dependency modernization is deferred.
+
+The live deployment may lag local changes; this stabilization work does not deploy automatically.
