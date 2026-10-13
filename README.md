@@ -10,7 +10,7 @@ A small portfolio app for exploring the first 120 Pokémon from [PokéAPI](https
 - Normal/shiny controls use actual image URLs, not color filters. Artwork falls back to the matching variant's default sprite, then a visible unavailable message. Missing shiny sources disable that option.
 - Pending, empty and failed requests have visible feedback. Reopen a failed card to retry core details; retry a failed description inside the dialog; reload to retry the initial list.
 
-Built with HTML, standard CSS and vanilla JavaScript. No Bootstrap, jQuery, Popper, active tota11y, Tailwind, frontend framework, backend or build step. Plus Jakarta Sans loads from Google Fonts with a system fallback; Promise/fetch polyfills remain local. Historical dependency files, `dist/`, `vanilla/` and design references are retained.
+Built with HTML, standard CSS and vanilla JavaScript. No Bootstrap, jQuery, Popper, active tota11y, Tailwind, frontend framework, backend or build step. Plus Jakarta Sans loads from Google Fonts with a system fallback. Native Promise and fetch are required; no compatibility polyfills are loaded.
 
 ## Run locally
 
@@ -38,4 +38,4 @@ Descriptions are general Pokédex entries, without a selected game version. Base
 
 Internet access to PokéAPI, artwork hosting and fonts is required. Search is name-only and limited to the first 120 Pokémon. No filters, sorting, accounts, favorites, parties, evolution, comparison or companion expansion are included.
 
-Target current Chrome, Firefox, Safari and Edge with native HTML dialog, fetch and AbortController. Internet Explorer 11 is unsupported. Browser tooling was unavailable during implementation. The developer subsequently reviewed the preview and confirmed the main interface, artwork, search and detail modal appear correct. Production desktop/mobile checks, detailed modal accessibility and cross-browser verification remain pending. See [implementation and verification](docs/project-assessment/07--stitch-design-implementation-plan.md).
+Target current Chrome, Firefox, Safari and Edge with native HTML dialog, fetch and AbortController. Internet Explorer 11 is unsupported. Browser tooling was unavailable during implementation. The developer subsequently reviewed the preview and confirmed the main interface, artwork, search and detail modal appear correct. Production desktop/mobile checks, detailed modal accessibility and cross-browser verification remain pending.
