@@ -2,7 +2,7 @@
 
 A responsive Pokémon explorer built with vanilla JavaScript and the PokéAPI REST API. This personal portfolio project demonstrates frontend development, external API integration and interactive data presentation.
 
-**[Explore the live app](https://marksav85.github.io/pokedex-app/)**
+**[Explore the live app](https://pokedex.marksavilledesigns.com/)**
 
 ## Features
 
