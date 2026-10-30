@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "format:check": "prettier --check index.html src/css/styles.css src/js/bs-script.js tests/stabilization.test.cjs",
+    "format": "prettier --write index.html src/css/styles.css src/js/bs-script.js tests/stabilization.test.cjs"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10"
+  }
+}

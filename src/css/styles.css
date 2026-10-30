@@ -15,7 +15,7 @@
   --radius: 24px;
   --gutter: 12px;
   --page-padding: 16px;
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 16px;
 }
 /* Base layout and controls; hidden states must override component display rules. */
@@ -32,7 +32,7 @@ body {
   line-height: 1.5;
 }
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   z-index: -1;
   pointer-events: none;
@@ -162,7 +162,7 @@ ul {
   border-radius: 50%;
 }
 .pokeball::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -170,7 +170,7 @@ ul {
   border-top: 2px solid var(--coral);
 }
 .pokeball::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 6px;
   height: 6px;
@@ -198,7 +198,7 @@ ul {
   gap: 24px;
 }
 .catalog-intro::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -401,7 +401,7 @@ h1 {
   overflow: hidden;
 }
 .card-trigger::before {
-  content: "";
+  content: '';
   pointer-events: none;
   position: absolute;
   inset: 0;
@@ -565,7 +565,7 @@ h1 {
 }
 .dialog-layout {
   display: grid;
-  grid-template-areas: "identity" "artwork" "data";
+  grid-template-areas: 'identity' 'artwork' 'data';
 }
 .detail-identity {
   grid-area: identity;
@@ -631,7 +631,7 @@ h1 {
   font-weight: 700;
   font-size: 13px;
 }
-.variant-button[aria-pressed="true"] {
+.variant-button[aria-pressed='true'] {
   background: var(--coral);
   color: #410001;
 }
@@ -846,7 +846,7 @@ h1 {
   }
   .dialog-layout {
     grid-template-columns: 5fr 7fr;
-    grid-template-areas: "artwork identity" "artwork data";
+    grid-template-areas: 'artwork identity' 'artwork data';
   }
   .detail-identity {
     padding: 36px 32px 16px;
