@@ -15,5 +15,3 @@ Pokédex is a static Pokémon explorer for a personal portfolio. It uses HTML, C
 ## Architecture constraint
 
 The page markup and script share element IDs and dialog structure used by the application and regression harness. Preserve those integration points and the direct static delivery model when changing the interface. The browser retrieves catalog data and artwork from PokéAPI.
-
-For shared development guidance, consult the MSD Projects Playbook using the location and permissions established by global Codex instructions.
